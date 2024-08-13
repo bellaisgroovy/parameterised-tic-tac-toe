@@ -28,6 +28,28 @@ public class Board {
         populateFlatBoard();
     }
 
+    @Override
+    public String toString() {
+        List<String> stringFlatBoard = new ArrayList<>(flatBoard.size());
+        for (int cell: flatBoard) {
+            stringFlatBoard.add(String.valueOf(cell));
+        }
+
+        int subArraySize = stringFlatBoard.size();
+        for (int sizeIndex = 0; sizeIndex<sizes.size()-1; sizeIndex++) {
+            subArraySize = subArraySize/sizes.get(sizeIndex);
+            for (int flatIndex = 0; flatIndex < stringFlatBoard.size(); flatIndex++) {
+                if (flatIndex % subArraySize == 0 ) {
+                    stringFlatBoard.set(flatIndex, "["+stringFlatBoard.get(flatIndex));
+                }
+                if (flatIndex % subArraySize == subArraySize-1) {
+                    stringFlatBoard.set(flatIndex, stringFlatBoard.get(flatIndex)+"]");
+                }
+            }
+        }
+        return stringFlatBoard.toString();
+    }
+
     private final int dimensions;
     private final List<Integer> sizes;
 

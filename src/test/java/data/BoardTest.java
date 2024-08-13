@@ -67,5 +67,10 @@ public class BoardTest {
         assertEquals(expectedSizes, board.getSizes());
     }
 
-
+    @Test
+    public void toString_board() {
+        Board board = new Board(List.of(2, 2, 2, 2));
+        String expected = "[[[[0, 0], [0, 0]], [[0, 0], [0, 0]]], [[[0, 0], [0, 0]], [[0, 0], [0, 0]]]]";
+        assertEquals(expected, board.toString());
+    }
 }

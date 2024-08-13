@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Board {
-    public int getDimensions() {
+    public int getNoDimensions() {
         return dimensions;
     }
 
@@ -57,7 +57,7 @@ public class Board {
 
     //populate flatBoard with 0s
     private void populateFlatBoard() {
-        this.flatBoard = new ArrayList<Integer>();
+        this.flatBoard = new ArrayList<>();
         int maxFlatIndex = sizes.getFirst();
         for (int i = 1; i < this.dimensions; i++) {
             maxFlatIndex = maxFlatIndex * this.sizes.get(i);

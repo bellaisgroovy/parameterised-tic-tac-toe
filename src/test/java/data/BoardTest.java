@@ -38,7 +38,7 @@ public class BoardTest {
     @Test
     public void construct_0d_board_fails() {
         try {
-            Board board = new Board(List.of());
+            new Board(List.of());
             fail();
         } catch (NoSuchElementException _) {
         }
@@ -48,7 +48,7 @@ public class BoardTest {
     public void get_index_out_of_bounds_fails() {
         Board board = new Board(List.of(2,4));
         try {
-            int x = board.get(List.of(1,5));
+            board.get(List.of(1,5));
             fail();
         } catch (IndexOutOfBoundsException _) {}
     }
@@ -57,7 +57,14 @@ public class BoardTest {
     public void construct_9d_board() {
         Board board = new Board(List.of(7,4,1,8,4,9,3,6,4));
         int expected = 9;
-        assertEquals(expected, board.getDimensions());
+        assertEquals(expected, board.getNoDimensions());
+    }
+
+    @Test
+    public void find_sizes_of_board() {
+        List<Integer> expectedSizes = List.of(4,3,2,1);
+        Board board = new Board(expectedSizes);
+        assertEquals(expectedSizes, board.getSizes());
     }
 
 

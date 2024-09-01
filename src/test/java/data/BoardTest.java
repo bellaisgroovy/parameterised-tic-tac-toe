@@ -73,4 +73,28 @@ public class BoardTest {
         String expected = "[[[[0, 0], [0, 0]], [[0, 0], [0, 0]]], [[[0, 0], [0, 0]], [[0, 0], [0, 0]]]]";
         assertEquals(expected, board.toString());
     }
+
+    @Test
+    public void populate_max_index() {
+        Board board = new Board(List.of(3,3));
+        board.set(List.of(2,2), 2);
+    }
+
+    @Test
+    public void fail_to_set_negative_index() {
+        Board board = new Board(List.of(9,4,7));
+        try {
+            board.set(List.of(-1,3,3), 9);
+            fail();
+        } catch (IndexOutOfBoundsException _) {}
+    }
+
+    @Test
+    public void fail_to_set_index_out_of_bounds() {
+        Board board = new Board(List.of(9,4,7));
+        try {
+            board.set(List.of(11,3,3), 9);
+            fail();
+        } catch (IndexOutOfBoundsException _) {}
+    }
 }

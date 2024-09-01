@@ -57,7 +57,8 @@ public class Board {
 
     private boolean indicesInBounds(List<Integer> indices) {
         for (int i = 0; i < indices.size(); i++) {
-            if (indices.get(i) > sizes.get(i)) {
+            // if index is less than 0 or greater than max size
+            if (0 > indices.get(i) || indices.get(i) > sizes.get(i)-1) {
                 return false;
             }
         }

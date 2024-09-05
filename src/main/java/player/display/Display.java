@@ -1,7 +1,7 @@
 package player.display;
 
-import data.Board;
+import data.MatrixBoard;
 
 public interface Display {
-    void display(Board board);
+    void display(MatrixBoard board);
 }

@@ -8,11 +8,11 @@ import data.GameState;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MatrixBoardChecker implements BoardChecker {
+public class SimpleBoardChecker implements BoardChecker {
     int streakToWin;
     ListBoolBinaryAdder binaryAdder;
 
-    public MatrixBoardChecker(int streakToWin) {
+    public SimpleBoardChecker(int streakToWin) {
         this.streakToWin = streakToWin;
         this.binaryAdder = new SimpleListBoolBinaryAdder();
     }

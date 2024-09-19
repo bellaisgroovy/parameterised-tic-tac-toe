@@ -1,7 +1,6 @@
 package player;
 
 import data.Board;
-import data.MatrixBoard;
 
 import java.util.List;
 

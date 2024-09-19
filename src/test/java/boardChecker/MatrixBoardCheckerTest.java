@@ -1,5 +1,6 @@
 package boardChecker;
 
+import data.GameState;
 import data.MatrixBoard;
 import data.Board;
 import org.junit.jupiter.api.Test;
@@ -9,8 +10,6 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class MatrixBoardCheckerTest {
-    final int NO_WIN = -1;
-
     // tests for many directions of diagonal in many dimensions
     @Test
     public void top_row_3x3_board_3_to_win() {
@@ -166,7 +165,7 @@ public class MatrixBoardCheckerTest {
 
         BoardChecker boardChecker = new MatrixBoardChecker(sizeRowToWin);
 
-        assertEquals(NO_WIN, boardChecker.winningPlayer(board));
+        assertEquals(GameState.ONGOING.value, boardChecker.winningPlayer(board));
     }
 
     @Test
@@ -196,6 +195,27 @@ public class MatrixBoardCheckerTest {
         Board board = new MatrixBoard(boardSize);
         BoardChecker boardChecker = new MatrixBoardChecker(sizeRowToWin);
 
-        assertEquals(NO_WIN, boardChecker.winningPlayer(board));
+        assertEquals(GameState.ONGOING.value, boardChecker.winningPlayer(board));
+    }
+
+    @Test
+    public void draw() {
+        Board board = new MatrixBoard(List.of(3,3));
+        int nought = 1;
+        int cross = 2;
+        board.setCellAt(List.of(0,0), nought);
+        board.setCellAt(List.of(0,1), cross);
+        board.setCellAt(List.of(0,2), nought);
+        board.setCellAt(List.of(1,0), cross);
+        board.setCellAt(List.of(1,1), cross);
+        board.setCellAt(List.of(1,2), nought);
+        board.setCellAt(List.of(2,0), nought);
+        board.setCellAt(List.of(2,1), nought);
+        board.setCellAt(List.of(2,2), cross);
+
+        int sizeRowToWin = 3;
+        BoardChecker boardChecker = new MatrixBoardChecker(sizeRowToWin);
+
+        assertEquals(GameState.DRAW.value, boardChecker.winningPlayer(board));
     }
 }

@@ -3,12 +3,12 @@ package boardChecker;
 import data.Board;
 import data.ListBoolBinaryAdder;
 import data.SimpleListBoolBinaryAdder;
+import data.GameState;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MatrixBoardChecker implements BoardChecker {
-    final int NO_WINNER = -1;
     int streakToWin;
     ListBoolBinaryAdder binaryAdder;
 
@@ -17,7 +17,7 @@ public class MatrixBoardChecker implements BoardChecker {
         this.binaryAdder = new SimpleListBoolBinaryAdder();
     }
 
-    // returns winner or -1 if there is none
+    // returns int representing winner, or 0 for a draw, or -1 for game still continuing
     @Override
     public int winningPlayer(Board board) {
         // get every direction that needs checked
@@ -31,9 +31,16 @@ public class MatrixBoardChecker implements BoardChecker {
         }
         List<Integer> coordinate = new ArrayList<>(coordinateZero);
 
-        int winner = NO_WINNER;
-        while (winner == NO_WINNER) {
-            if(isCellWinning(board, coordinate, directions)) {
+        boolean hasEmptyCell = false;
+        int winner = GameState.ONGOING.value;
+        while (winner == GameState.ONGOING.value) {
+            int currentPlayer = board.getCellAt(coordinate);
+
+            if (currentPlayer == 0) {
+                hasEmptyCell = true;
+            }
+
+            if (cellIsWinning(board, coordinate, directions)) {
                 winner = board.getCellAt(coordinate);
             } else {
                 coordinate = getNextBoardCoordinate(board.getSizes(), coordinate);
@@ -43,10 +50,14 @@ public class MatrixBoardChecker implements BoardChecker {
             }
         }
 
+        if (!hasEmptyCell && winner == GameState.ONGOING.value) {
+            winner = GameState.DRAW.value;
+        }
+
         return winner;
     }
 
-    private boolean isCellWinning(Board board, List<Integer> coordinate, List<List<Integer>> directions) {
+    private boolean cellIsWinning(Board board, List<Integer> coordinate, List<List<Integer>> directions) {
         if (board.getCellAt(coordinate) != 0) {
             for (List<Integer> direction : directions) {
                 if (isCellWinningInDirection(board, coordinate, direction)) {
@@ -60,17 +71,18 @@ public class MatrixBoardChecker implements BoardChecker {
     // adds 1 to the rightmost item in list unless it is already at max in which case it rolls over one place left
     // like a number system where the base changes at each
     private List<Integer> getNextBoardCoordinate(List<Integer> sizes, List<Integer> coordinate) {
-        int i = coordinate.size() -1;
+        List<Integer> newCoordinate = new ArrayList<>(coordinate);
+        int i = newCoordinate.size() -1;
           while (i >= 0) {
-            if (coordinate.get(i) >= sizes.get(i) - 1) {
-                coordinate.set(i, 0);
+            if (newCoordinate.get(i) >= sizes.get(i) - 1) {
+                newCoordinate.set(i, 0);
                 i--;
             } else {
-                coordinate.set(i, coordinate.get(i) + 1);
+                newCoordinate.set(i, newCoordinate.get(i) + 1);
                 break;
             }
         }
-        return coordinate;
+        return newCoordinate;
     }
 
     private boolean isCellWinningInDirection(Board board, List<Integer> coordinate, List<Integer> direction) {

@@ -6,7 +6,7 @@ public enum GameState {
 
     public final int value;
 
-    private GameState(int value){
+    GameState(int value){
         this.value = value;
     }
 }

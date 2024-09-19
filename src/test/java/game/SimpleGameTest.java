@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SimpleGameTest {
     SimpleGame createGame(List<Integer> boardSizes, List<String> inputs, int streakToWin) {
-        Board board = new SimpleBoard(List.of(3,3));
+        Board board = new SimpleBoard(boardSizes);
 
         List<Player> players = new ArrayList<>();
         for (String input : inputs) {

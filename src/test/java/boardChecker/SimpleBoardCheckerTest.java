@@ -1,7 +1,7 @@
 package boardChecker;
 
 import data.GameState;
-import data.MatrixBoard;
+import data.SimpleBoard;
 import data.Board;
 import org.junit.jupiter.api.Test;
 
@@ -9,7 +9,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class MatrixBoardCheckerTest {
+public class SimpleBoardCheckerTest {
     // tests for many directions of diagonal in many dimensions
     @Test
     public void top_row_3x3_board_3_to_win() {
@@ -18,12 +18,12 @@ public class MatrixBoardCheckerTest {
         int player = 1;
 
         // create board where top three slots are set to one
-        Board board = new MatrixBoard(boardSize);
+        Board board = new SimpleBoard(boardSize);
         board.setCellAt(List.of(0,2), player);
         board.setCellAt(List.of(1,2), player);
         board.setCellAt(List.of(2,2), player);
 
-        BoardChecker boardChecker = new MatrixBoardChecker(sizeRowToWin);
+        BoardChecker boardChecker = new SimpleBoardChecker(sizeRowToWin);
 
         assertEquals(player, boardChecker.winningPlayer(board));
     }
@@ -35,12 +35,12 @@ public class MatrixBoardCheckerTest {
         int player = 9;
 
         // create board where top three slots are set to one
-        Board board = new MatrixBoard(boardSize);
+        Board board = new SimpleBoard(boardSize);
         board.setCellAt(List.of(0,2), player);
         board.setCellAt(List.of(1,2), player);
         board.setCellAt(List.of(2,2), player);
 
-        BoardChecker boardChecker = new MatrixBoardChecker(sizeRowToWin);
+        BoardChecker boardChecker = new SimpleBoardChecker(sizeRowToWin);
 
         assertEquals(player, boardChecker.winningPlayer(board));
     }
@@ -52,12 +52,12 @@ public class MatrixBoardCheckerTest {
         int player = 2;
 
         // create board where top three slots are set to one
-        Board board = new MatrixBoard(boardSize);
+        Board board = new SimpleBoard(boardSize);
         board.setCellAt(List.of(0,0), player);
         board.setCellAt(List.of(1,1), player);
         board.setCellAt(List.of(2,2), player);
 
-        BoardChecker boardChecker = new MatrixBoardChecker(sizeRowToWin);
+        BoardChecker boardChecker = new SimpleBoardChecker(sizeRowToWin);
 
         assertEquals(player, boardChecker.winningPlayer(board));
     }
@@ -69,12 +69,12 @@ public class MatrixBoardCheckerTest {
         int player = 2;
 
         // create board where top three slots are set to one
-        Board board = new MatrixBoard(boardSize);
+        Board board = new SimpleBoard(boardSize);
         board.setCellAt(List.of(0,2), player);
         board.setCellAt(List.of(1,1), player);
         board.setCellAt(List.of(2,0), player);
 
-        BoardChecker boardChecker = new MatrixBoardChecker(sizeRowToWin);
+        BoardChecker boardChecker = new SimpleBoardChecker(sizeRowToWin);
 
         assertEquals(player, boardChecker.winningPlayer(board));
     }
@@ -86,13 +86,13 @@ public class MatrixBoardCheckerTest {
         int player = 7;
 
         // create board where top three slots are set to one
-        Board board = new MatrixBoard(boardSize);
+        Board board = new SimpleBoard(boardSize);
         board.setCellAt(List.of(0,3,0), player);
         board.setCellAt(List.of(1,2,1), player);
         board.setCellAt(List.of(2,1,2), player);
         board.setCellAt(List.of(3,0,3), player);
 
-        BoardChecker boardChecker = new MatrixBoardChecker(sizeRowToWin);
+        BoardChecker boardChecker = new SimpleBoardChecker(sizeRowToWin);
 
         assertEquals(player, boardChecker.winningPlayer(board));
     }
@@ -104,13 +104,13 @@ public class MatrixBoardCheckerTest {
         int player = 7;
 
         // create board where top three slots are set to one
-        Board board = new MatrixBoard(boardSize);
+        Board board = new SimpleBoard(boardSize);
         board.setCellAt(List.of(3,3,0), player);
         board.setCellAt(List.of(2,2,1), player);
         board.setCellAt(List.of(1,1,2), player);
         board.setCellAt(List.of(0,0,3), player);
 
-        BoardChecker boardChecker = new MatrixBoardChecker(sizeRowToWin);
+        BoardChecker boardChecker = new SimpleBoardChecker(sizeRowToWin);
 
         assertEquals(player, boardChecker.winningPlayer(board));
     }
@@ -122,13 +122,13 @@ public class MatrixBoardCheckerTest {
         int player = 5;
 
         // create board where top three slots are set to one
-        Board board = new MatrixBoard(boardSize);
+        Board board = new SimpleBoard(boardSize);
         board.setCellAt(List.of(3,0,0), player);
         board.setCellAt(List.of(2,1,1), player);
         board.setCellAt(List.of(1,2,2), player);
         board.setCellAt(List.of(0,3,3), player);
 
-        BoardChecker boardChecker = new MatrixBoardChecker(sizeRowToWin);
+        BoardChecker boardChecker = new SimpleBoardChecker(sizeRowToWin);
 
         assertEquals(player, boardChecker.winningPlayer(board));
     }
@@ -140,13 +140,13 @@ public class MatrixBoardCheckerTest {
         int player = 11;
 
         // create board where top three slots are set to one
-        Board board = new MatrixBoard(boardSize);
+        Board board = new SimpleBoard(boardSize);
         board.setCellAt(List.of(0,0,0), player);
         board.setCellAt(List.of(1,1,1), player);
         board.setCellAt(List.of(2,2,2), player);
         board.setCellAt(List.of(3,3,3), player);
 
-        BoardChecker boardChecker = new MatrixBoardChecker(sizeRowToWin);
+        BoardChecker boardChecker = new SimpleBoardChecker(sizeRowToWin);
 
         assertEquals(player, boardChecker.winningPlayer(board));
     }
@@ -159,11 +159,11 @@ public class MatrixBoardCheckerTest {
         int player = 1;
 
         // create board where top three slots are set to one
-        Board board = new MatrixBoard(boardSize);
+        Board board = new SimpleBoard(boardSize);
         board.setCellAt(List.of(0,2), player);
         board.setCellAt(List.of(1,2), player);
 
-        BoardChecker boardChecker = new MatrixBoardChecker(sizeRowToWin);
+        BoardChecker boardChecker = new SimpleBoardChecker(sizeRowToWin);
 
         assertEquals(GameState.ONGOING.value, boardChecker.winningPlayer(board));
     }
@@ -175,14 +175,14 @@ public class MatrixBoardCheckerTest {
         int player = 1;
 
         // create board where top three slots are set to one
-        Board board = new MatrixBoard(boardSize);
+        Board board = new SimpleBoard(boardSize);
         board.setCellAt(List.of(0,1), player);
         board.setCellAt(List.of(1,1), player);
         board.setCellAt(List.of(2,1), player);
         board.setCellAt(List.of(3,1), player);
 
 
-        BoardChecker boardChecker = new MatrixBoardChecker(sizeRowToWin);
+        BoardChecker boardChecker = new SimpleBoardChecker(sizeRowToWin);
 
         assertEquals(player, boardChecker.winningPlayer(board));
     }
@@ -192,15 +192,15 @@ public class MatrixBoardCheckerTest {
         List<Integer> boardSize = List.of(3,6,4,2);
         int sizeRowToWin = 4;
 
-        Board board = new MatrixBoard(boardSize);
-        BoardChecker boardChecker = new MatrixBoardChecker(sizeRowToWin);
+        Board board = new SimpleBoard(boardSize);
+        BoardChecker boardChecker = new SimpleBoardChecker(sizeRowToWin);
 
         assertEquals(GameState.ONGOING.value, boardChecker.winningPlayer(board));
     }
 
     @Test
     public void draw() {
-        Board board = new MatrixBoard(List.of(3,3));
+        Board board = new SimpleBoard(List.of(3,3));
         int nought = 1;
         int cross = 2;
         board.setCellAt(List.of(0,0), nought);
@@ -214,7 +214,7 @@ public class MatrixBoardCheckerTest {
         board.setCellAt(List.of(2,2), cross);
 
         int sizeRowToWin = 3;
-        BoardChecker boardChecker = new MatrixBoardChecker(sizeRowToWin);
+        BoardChecker boardChecker = new SimpleBoardChecker(sizeRowToWin);
 
         assertEquals(GameState.DRAW.value, boardChecker.winningPlayer(board));
     }

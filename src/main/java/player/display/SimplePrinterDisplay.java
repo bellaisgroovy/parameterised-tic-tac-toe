@@ -1,11 +1,11 @@
 package player.display;
 
-import data.MatrixBoard;
+import data.Board;
 
 public class SimplePrinterDisplay implements Display{
 
     @Override
-    public void display(MatrixBoard board) {
+    public void display(Board board) {
         System.out.println(board.toString());
     }
 }

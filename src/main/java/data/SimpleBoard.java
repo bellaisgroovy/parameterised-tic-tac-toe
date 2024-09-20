@@ -3,7 +3,7 @@ package data;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MatrixBoard implements Board{
+public class SimpleBoard implements Board{
     public int getNoDimensions() {
         return dimensions;
     }
@@ -24,7 +24,7 @@ public class MatrixBoard implements Board{
         flatBoard.set(flatIndex, value);
     }
 
-    public MatrixBoard(List<Integer> sizes) {
+    public SimpleBoard(List<Integer> sizes) {
         this.dimensions = sizes.size();
         this.sizes = sizes;
         populateFlatBoard();

@@ -8,6 +8,12 @@ import java.util.Scanner;
 
 public class SimplePlayer implements Player {
 
+    public SimplePlayer() {}
+
+    public SimplePlayer(Scanner scanner) {
+        setScanner(scanner);
+    }
+
     public void setScanner(Scanner scanner) {
         this.scanner = scanner;
     }

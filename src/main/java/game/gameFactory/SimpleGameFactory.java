@@ -16,7 +16,7 @@ public class SimpleGameFactory implements GameFactory{
 
     @Override
     public Game createGame(List<Integer> boardSizes, int streakToWin, int noPlayers) {
-        List<Player> players = new ArrayList<Player>();
+        List<Player> players = new ArrayList<>();
         for (int i = 0; i < noPlayers; i++) {
             players.add(new SimplePlayer());
         }

@@ -25,15 +25,15 @@ public class SimpleBoardChecker implements BoardChecker {
 
         // check for matches in every direction from every element in board
         // initialise coordinate
-        List<Integer> coordinateZero = new ArrayList<>();
+        List<Integer> firstCoordinate = new ArrayList<>();
         for (int i = 0; i < board.getNoDimensions(); i++) {
-            coordinateZero.add(0);
+            firstCoordinate.add(0);
         }
-        List<Integer> coordinate = new ArrayList<>(coordinateZero);
+        List<Integer> coordinate = new ArrayList<>(firstCoordinate);
 
         boolean hasEmptyCell = false;
         int winner = GameState.ONGOING.value;
-        while (winner == GameState.ONGOING.value) {
+        do {
             int currentPlayer = board.getCellAt(coordinate);
 
             if (currentPlayer == 0) {
@@ -41,14 +41,11 @@ public class SimpleBoardChecker implements BoardChecker {
             }
 
             if (cellIsWinning(board, coordinate, directions)) {
-                winner = board.getCellAt(coordinate);
+                winner = currentPlayer;
             } else {
                 coordinate = getNextBoardCoordinate(board.getSizes(), coordinate);
-                if (coordinate.equals(coordinateZero)) {
-                    break;
-                }
             }
-        }
+        } while (winner == GameState.ONGOING.value && !coordinate.equals(firstCoordinate));
 
         if (!hasEmptyCell && winner == GameState.ONGOING.value) {
             winner = GameState.DRAW.value;

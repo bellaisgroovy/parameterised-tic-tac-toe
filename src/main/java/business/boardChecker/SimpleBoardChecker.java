@@ -1,9 +1,9 @@
-package boardChecker;
+package business.boardChecker;
 
-import data.Board;
-import data.ListBoolBinaryAdder;
-import data.SimpleListBoolBinaryAdder;
-import data.GameState;
+import business.data.Board;
+import business.data.ListBoolBinaryAdder;
+import business.data.SimpleListBoolBinaryAdder;
+import business.data.GameState;
 
 import java.util.ArrayList;
 import java.util.List;

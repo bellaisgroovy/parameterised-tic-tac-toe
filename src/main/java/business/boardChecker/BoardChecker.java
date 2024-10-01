@@ -1,6 +1,6 @@
-package boardChecker;
+package business.boardChecker;
 
-import data.Board;
+import business.data.Board;
 
 public interface BoardChecker {
     int winningPlayer(Board board);

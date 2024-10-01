@@ -1,4 +1,4 @@
-package data;
+package business.data;
 
 public enum GameState {
     DRAW(0),

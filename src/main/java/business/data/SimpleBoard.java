@@ -1,4 +1,4 @@
-package data;
+package business.data;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,22 +12,40 @@ public class SimpleBoard implements Board{
         return sizes;
     }
 
+    public List<Integer> getFlatBoard() {
+        return flatBoard;
+    }
+
     public int getCellAt(List<Integer> indices) {
         validateIndices(indices);
         int flatIndex = getFlatIndex(indices);
-        return flatBoard.get(flatIndex);
+        return getFlatBoard().get(flatIndex);
     }
 
     public void setCellAt(List<Integer> indices, Integer value) {
         validateIndices(indices);
         int flatIndex = getFlatIndex(indices);
-        flatBoard.set(flatIndex, value);
+        getFlatBoard().set(flatIndex, value);
     }
 
     public SimpleBoard(List<Integer> sizes) {
         this.dimensions = sizes.size();
         this.sizes = sizes;
         populateFlatBoard();
+    }
+
+    public SimpleBoard(List<Integer> sizes, List<Integer> flatBoard) {
+        this.dimensions = sizes.size();
+        this.sizes = sizes;
+        this.flatBoard = flatBoard;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Board)) return false;
+
+        Board board = (Board) obj;
+        return getFlatBoard().equals(board.getFlatBoard());
     }
 
     @Override

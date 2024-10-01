@@ -1,4 +1,4 @@
-package data;
+package business.data;
 
 import java.util.List;
 

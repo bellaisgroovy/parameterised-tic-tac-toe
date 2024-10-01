@@ -1,5 +1,6 @@
-package data;
+package business.data;
 
+import business.data.SimpleListBoolBinaryAdder;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

@@ -3,6 +3,9 @@ package business.data;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Manages an n dimensional List with regular lengths. All lists in one dimension must have the same length.
+ */
 public interface Board{
     int getNoDimensions();
 

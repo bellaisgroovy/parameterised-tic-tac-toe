@@ -5,9 +5,7 @@ import business.data.SimpleBoard;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -15,9 +13,7 @@ public class FileBoardSaveReader implements BoardSaveReader{
 
     @Override
     public Board getBoard(String name) {
-
-
-        Scanner scanner = findOrCreateBoard(name);
+        Scanner scanner = findBoard(name);
 
         return readBoard(scanner);
     }
@@ -44,7 +40,7 @@ public class FileBoardSaveReader implements BoardSaveReader{
         return items;
     }
 
-    private Scanner findOrCreateBoard(String name) {
+    private Scanner findBoard(String name) {
         File save = new File(saveFolder.getPath() + "/" + name + ".board");
 
         try {

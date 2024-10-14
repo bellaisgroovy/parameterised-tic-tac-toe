@@ -2,6 +2,8 @@ package data;
 
 import business.data.Board;
 
+import java.util.NoSuchElementException;
+
 public interface BoardSaveReader {
     /**
      * gets board of name if it exists
@@ -9,5 +11,5 @@ public interface BoardSaveReader {
      * name of board to retrieve
      * @return board specified or error
      */
-    Board getBoard(String name);
+    Board getBoard(String name) throws NoSuchElementException;
 }

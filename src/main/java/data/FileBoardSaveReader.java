@@ -7,12 +7,13 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class FileBoardSaveReader implements BoardSaveReader{
 
     @Override
-    public Board getBoard(String name) {
+    public Board getBoard(String name) throws NoSuchElementException {
         Scanner scanner = findBoard(name);
 
         return readBoard(scanner);
@@ -40,13 +41,12 @@ public class FileBoardSaveReader implements BoardSaveReader{
         return items;
     }
 
-    private Scanner findBoard(String name) {
+    private Scanner findBoard(String name) throws NoSuchElementException {
         File save = new File(saveFolder.getPath() + "/" + name + ".board");
-
         try {
             return new Scanner(save);
         } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+            throw new NoSuchElementException("No board called " + name + " was found");
         }
     }
 }

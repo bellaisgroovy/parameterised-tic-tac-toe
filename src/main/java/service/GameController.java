@@ -1,17 +1,18 @@
-package business.game;
+package service;
 
-import business.data.Board;
+import game.data.Board;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
-public interface GameService {
+public interface GameController {
     /**
-     * gets current state of the specified game
+     * gets current state of the specified game if exists
      * @param gameName
      * name of game to retrieve
      * @return current state of board
      */
-    Board getBoard(String gameName);
+    Board getBoard(String gameName) throws NoSuchElementException;
 
     /**
      * sets cell at cellCoordinate to player in game of name gameName
@@ -33,4 +34,14 @@ public interface GameService {
      * @return an int representing game state, -1 = ongoing, 0 = draw, positive integer = the player who won
      */
     int getWinner(String gameName);
+
+    /**
+     * creates a game with specified name
+     * @param sizes
+     * sizes of board to be created
+     * @param gameName
+     * name of game to be created
+     * @return true if created successfully, error if not
+     */
+    boolean createBoard(List<Integer> sizes, String gameName);
 }

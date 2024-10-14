@@ -1,4 +1,4 @@
-package service;
+package controller;
 
 import game.data.Board;
 

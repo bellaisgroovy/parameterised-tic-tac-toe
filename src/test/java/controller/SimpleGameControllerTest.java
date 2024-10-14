@@ -1,4 +1,4 @@
-package service;
+package controller;
 
 import data.BoardRepository;
 import game.boardChecker.BoardChecker;

@@ -1,4 +1,4 @@
-package business.game;
+package game.game;
 
 public class SimpleGameServiceTest {
 }

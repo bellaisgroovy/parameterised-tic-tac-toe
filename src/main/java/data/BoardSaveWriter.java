@@ -1,6 +1,6 @@
 package data;
 
-import business.data.Board;
+import game.data.Board;
 
 public interface BoardSaveWriter {
     void saveBoard(Board board, String saveName);

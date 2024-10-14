@@ -1,10 +1,8 @@
-package business.boardChecker;
+package game.boardChecker;
 
-import business.boardChecker.BoardChecker;
-import business.boardChecker.SimpleBoardChecker;
-import business.data.GameState;
-import business.data.SimpleBoard;
-import business.data.Board;
+import game.data.GameState;
+import game.data.SimpleBoard;
+import game.data.Board;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

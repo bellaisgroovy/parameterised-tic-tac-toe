@@ -1,6 +1,6 @@
-package business.boardChecker;
+package game.boardChecker;
 
-import business.data.Board;
+import game.data.Board;
 
 public interface BoardChecker {
     /**

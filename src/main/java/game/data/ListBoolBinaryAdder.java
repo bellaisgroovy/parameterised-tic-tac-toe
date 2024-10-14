@@ -1,4 +1,4 @@
-package business.data;
+package game.data;
 
 import java.util.List;
 

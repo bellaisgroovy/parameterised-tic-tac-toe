@@ -1,6 +1,6 @@
 package data;
 
-import business.data.Board;
+import game.data.Board;
 
 import java.util.NoSuchElementException;
 

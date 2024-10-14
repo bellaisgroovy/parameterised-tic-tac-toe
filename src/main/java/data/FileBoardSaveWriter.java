@@ -1,12 +1,10 @@
 package data;
 
-import business.data.Board;
+import game.data.Board;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class FileBoardSaveWriter implements BoardSaveWriter {
     @Override

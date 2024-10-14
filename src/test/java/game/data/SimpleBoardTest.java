@@ -1,8 +1,6 @@
-package business.data;
+package game.data;
 
 
-import business.data.Board;
-import business.data.SimpleBoard;
 import org.junit.jupiter.api.Test;
 import java.util.List;
 import java.util.NoSuchElementException;

@@ -14,7 +14,6 @@ public class SimpleBoardCheckerTest {
     @Test
     public void top_row_3x3_board_3_to_win() {
         List<Integer> boardSize = List.of(3,3);
-        int sizeRowToWin = 3;
         int player = 1;
         int streakToWin = 3;
 

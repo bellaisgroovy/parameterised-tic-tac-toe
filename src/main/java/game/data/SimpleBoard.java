@@ -48,9 +48,8 @@ public class SimpleBoard implements Board{
 
     @Override
     public boolean equals(Object obj) {
-        if (!(obj instanceof Board)) return false;
+        if (!(obj instanceof Board board)) return false;
 
-        Board board = (Board) obj;
         return getFlatBoard().equals(board.getFlatBoard());
     }
 

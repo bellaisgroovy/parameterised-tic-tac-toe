@@ -1,10 +1,10 @@
-package data;
+package api.data;
 
 import game.data.Board;
 
 import java.util.NoSuchElementException;
 
-public interface BoardRepository {
+public interface BoardSaveReader {
     /**
      * gets board of name if it exists
      * @param name
@@ -12,12 +12,4 @@ public interface BoardRepository {
      * @return board specified or error
      */
     Board getBoard(String name) throws NoSuchElementException;
-
-    /**
-     * @param board
-     * board to be saved
-     * @param saveName
-     * name given
-     */
-    void saveBoard(Board board, String saveName);
 }

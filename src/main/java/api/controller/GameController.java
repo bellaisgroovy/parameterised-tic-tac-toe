@@ -1,4 +1,4 @@
-package controller;
+package api.controller;
 
 import game.data.Board;
 

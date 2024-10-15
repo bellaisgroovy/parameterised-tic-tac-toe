@@ -1,6 +1,6 @@
-package controller;
+package api.controller;
 
-import data.BoardRepository;
+import api.data.BoardRepository;
 import game.boardChecker.BoardChecker;
 import game.data.Board;
 import game.data.SimpleBoard;

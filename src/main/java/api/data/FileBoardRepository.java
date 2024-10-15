@@ -1,9 +1,11 @@
-package data;
+package api.data;
 
 import game.data.Board;
+import org.springframework.stereotype.Component;
 
 import java.util.NoSuchElementException;
 
+@Component
 public class FileBoardRepository implements BoardRepository {
 
     @Override

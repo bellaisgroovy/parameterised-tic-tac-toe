@@ -22,7 +22,7 @@ public class FileBoardSaveReaderTest {
     public void get_existing_board() {
         Board board = reader.getBoard("mid_game_3x3");
 
-        Board expectedBoard = new SimpleBoard(List.of(3,3), List.of(1,2,1,2,0,0,0,0,0));
+        Board expectedBoard = new SimpleBoard(List.of(3,3), 3, List.of(1,2,1,2,0,0,0,0,0));
         assertEquals(expectedBoard, board);
     }
 }

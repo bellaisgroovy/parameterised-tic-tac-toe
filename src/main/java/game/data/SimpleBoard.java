@@ -16,6 +16,10 @@ public class SimpleBoard implements Board{
         return flatBoard;
     }
 
+    public int getStreakToWin() {
+        return streakToWin;
+    }
+
     public int getCellAt(List<Integer> indices) {
         validateIndices(indices);
         int flatIndex = getFlatIndex(indices);
@@ -28,16 +32,18 @@ public class SimpleBoard implements Board{
         getFlatBoard().set(flatIndex, value);
     }
 
-    public SimpleBoard(List<Integer> sizes) {
+    public SimpleBoard(List<Integer> sizes, int streakToWin) {
         this.dimensions = sizes.size();
         this.sizes = sizes;
         populateFlatBoard();
+        this.streakToWin = streakToWin;
     }
 
-    public SimpleBoard(List<Integer> sizes, List<Integer> flatBoard) {
+    public SimpleBoard(List<Integer> sizes, int streakToWin, List<Integer> flatBoard) {
         this.dimensions = sizes.size();
         this.sizes = sizes;
         this.flatBoard = flatBoard;
+        this.streakToWin = streakToWin;
     }
 
     @Override
@@ -72,6 +78,8 @@ public class SimpleBoard implements Board{
 
     private final int dimensions;
     private final List<Integer> sizes;
+
+    private final int streakToWin;
 
     private List<Integer> flatBoard; // formatted like python literal array syntax without []
 

@@ -27,14 +27,14 @@ public class FileBoardSaveWriterTest {
     @Test
     public void save_board_overwrite() {
         String saveName = "overwritten_4x5";
-
+        int streakToWin = 4;
         // save one board
-        Board originalBoard = new SimpleBoard(List.of(4,5), List.of(1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2));
+        Board originalBoard = new SimpleBoard(List.of(4,5), streakToWin, List.of(1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2));
         writer.saveBoard(originalBoard, saveName);
         assertEquals(originalBoard, reader.getBoard(saveName));
 
         //save another board
-        Board newBoard = new SimpleBoard(List.of(4,5), List.of(0,0,0,0,0,0,1,0,0,0,0,0,0,2,0,0,0,0,0,0));
+        Board newBoard = new SimpleBoard(List.of(4,5), streakToWin, List.of(0,0,0,0,0,0,1,0,0,0,0,0,0,2,0,0,0,0,0,0));
         writer.saveBoard(newBoard, saveName);
         assertEquals(newBoard, reader.getBoard(saveName));
     }
@@ -43,7 +43,7 @@ public class FileBoardSaveWriterTest {
         String saveName = "fresh_board_2x1";
 
         // save one board
-        Board board = new SimpleBoard(List.of(2,1), List.of(1,2));
+        Board board = new SimpleBoard(List.of(2,1), 2, List.of(1,2));
         writer.saveBoard(board, saveName);
         assertEquals(board, reader.getBoard(saveName));
     }

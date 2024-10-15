@@ -9,11 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SimpleBoardChecker implements BoardChecker {
-    int streakToWin;
     ListBoolBinaryAdder binaryAdder;
 
-    public SimpleBoardChecker(int streakToWin) {
-        this.streakToWin = streakToWin;
+    public SimpleBoardChecker() {
         this.binaryAdder = new SimpleListBoolBinaryAdder();
     }
 
@@ -99,7 +97,7 @@ public class SimpleBoardChecker implements BoardChecker {
             nextCoordinate = new ArrayList<>(addIntLists(nextCoordinate, direction));
         }
 
-        return streak >= streakToWin;
+        return streak >= board.getStreakToWin();
     }
 
     private List<Integer> addIntLists(List<Integer> a, List<Integer> b) {

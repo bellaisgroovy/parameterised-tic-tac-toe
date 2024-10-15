@@ -12,6 +12,8 @@ public interface Board{
 
     List<Integer> getFlatBoard();
 
+    int getStreakToWin();
+
     int getCellAt(List<Integer> indices);
 
     void setCellAt(List<Integer> indices, Integer value);

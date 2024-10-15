@@ -32,7 +32,10 @@ public class FileBoardSaveReader implements BoardSaveReader{
         String[] flatBoardStringArray = scanner.nextLine().split(",");
         List<Integer> flatBoard = stringArrayToIntegerList(flatBoardStringArray);
 
-        return new SimpleBoard(sizes, flatBoard);
+        String streakToWinString = scanner.nextLine();
+        int streakToWin = Integer.parseInt(streakToWinString);
+
+        return new SimpleBoard(sizes, streakToWin, flatBoard);
     }
 
     private List<Integer> stringArrayToIntegerList(String[] array) {

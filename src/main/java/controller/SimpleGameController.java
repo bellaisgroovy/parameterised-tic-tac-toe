@@ -30,8 +30,8 @@ public class SimpleGameController implements GameController {
     }
 
     @Override
-    public boolean createBoard(List<Integer> sizes, String gameName) {
-        Board board = new SimpleBoard(sizes);
+    public boolean createBoard(List<Integer> sizes, int streakToWin, String gameName) {
+        Board board = new SimpleBoard(sizes, streakToWin);
         boardRepository.saveBoard(board, gameName);
         return true;
     }

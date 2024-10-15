@@ -36,7 +36,7 @@ public class SimpleGameControllerTest {
 
     @Test
     public void get_existing_board() {
-        Board board = new SimpleBoard(List.of(3,3));
+        Board board = new SimpleBoard(List.of(3,3), 3);
         when(boardRepository.getBoard(GAME_NAME)).thenReturn(board);
 
         Board actualBoard = gameController.getBoard(GAME_NAME);
@@ -53,7 +53,7 @@ public class SimpleGameControllerTest {
 
     @Test
     public void play_in_valid_cell() {
-        Board board = new SimpleBoard(List.of(3,3));
+        Board board = new SimpleBoard(List.of(3,3), 3);
         when(boardRepository.getBoard(GAME_NAME)).thenReturn(board);
 
         boolean isValidMove = gameController.playInCell(List.of(0,0), 1, GAME_NAME);
@@ -63,7 +63,7 @@ public class SimpleGameControllerTest {
 
     @Test
     public void play_in_invalid_cell() {
-        Board board = new SimpleBoard(List.of(3,3));
+        Board board = new SimpleBoard(List.of(3,3), 3);
         when(boardRepository.getBoard(GAME_NAME)).thenReturn(board);
 
         assertThrows(IllegalArgumentException.class ,() -> gameController.playInCell(List.of(9,9,9), 1, GAME_NAME));
@@ -71,7 +71,7 @@ public class SimpleGameControllerTest {
 
     @Test
     public void check_board_with_winner() {
-        Board board = new SimpleBoard(List.of(3,3));
+        Board board = new SimpleBoard(List.of(3,3), 3);
         when(boardRepository.getBoard(GAME_NAME)).thenReturn(board);
         int winner = 1;
         when(boardChecker.winningPlayer(board)).thenReturn(winner);
@@ -83,7 +83,7 @@ public class SimpleGameControllerTest {
 
     @Test
     public void check_board_with_draw() {
-        Board board = new SimpleBoard(List.of(3,3));
+        Board board = new SimpleBoard(List.of(3,3), 3);
         when(boardRepository.getBoard(GAME_NAME)).thenReturn(board);
         int winner = GameState.DRAW.value;
         when(boardChecker.winningPlayer(board)).thenReturn(winner);
@@ -95,7 +95,7 @@ public class SimpleGameControllerTest {
 
     @Test
     public void check_ongoing_board() {
-        Board board = new SimpleBoard(List.of(3,3));
+        Board board = new SimpleBoard(List.of(3,3), 3);
         when(boardRepository.getBoard(GAME_NAME)).thenReturn(board);
         int winner = GameState.ONGOING.value;
         when(boardChecker.winningPlayer(board)).thenReturn(winner);
@@ -107,7 +107,7 @@ public class SimpleGameControllerTest {
 
     @Test
     public void create_board_works() {
-        boolean createdSuccessfully = gameController.createBoard(List.of(3, 3), GAME_NAME);
+        boolean createdSuccessfully = gameController.createBoard(List.of(3, 3), 3, GAME_NAME);
 
         assertTrue(createdSuccessfully);
     }

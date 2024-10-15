@@ -13,6 +13,8 @@ public class FileBoardSaveWriter implements BoardSaveWriter {
         content.append(toBoardFormat(board.getSizes().toString()));
         content.append("\n");
         content.append(toBoardFormat(board.getFlatBoard().toString()));
+        content.append("\n");
+        content.append(board.getStreakToWin());
 
         try {
             FileWriter save = new FileWriter(saveFolder.getPath() + "/" + name + ".board");

@@ -16,6 +16,11 @@ public class SimpleBoard implements Board{
         return flatBoard;
     }
 
+    private void setFlatBoard(List<Integer> flatBoard) {
+        this.flatBoard = flatBoard;
+        setJSONBoard(toString());
+    }
+
     public int getStreakToWin() {
         return streakToWin;
     }
@@ -42,7 +47,7 @@ public class SimpleBoard implements Board{
     public SimpleBoard(List<Integer> sizes, int streakToWin, List<Integer> flatBoard) {
         this.dimensions = sizes.size();
         this.sizes = sizes;
-        this.flatBoard = flatBoard;
+        setFlatBoard(flatBoard);
         this.streakToWin = streakToWin;
     }
 
@@ -55,8 +60,8 @@ public class SimpleBoard implements Board{
 
     @Override
     public String toString() {
-        List<String> stringFlatBoard = new ArrayList<>(flatBoard.size());
-        for (int cell: flatBoard) {
+        List<String> stringFlatBoard = new ArrayList<>(getFlatBoard().size());
+        for (int cell: getFlatBoard()) {
             stringFlatBoard.add(String.valueOf(cell));
         }
 
@@ -124,7 +129,7 @@ public class SimpleBoard implements Board{
 
     //populate flatBoard with 0s
     private void populateFlatBoard() {
-        this.flatBoard = new ArrayList<>();
+        List<Integer> flatBoardCopy = new ArrayList<>();
 
         int totalNoValues = sizes.getFirst();
         for (int i = 1; i < this.dimensions; i++) {
@@ -132,7 +137,8 @@ public class SimpleBoard implements Board{
         }
 
         for (int i = 0; i < totalNoValues; i++) {
-            flatBoard.add(0);
+            flatBoardCopy.add(0);
         }
+        setFlatBoard(flatBoardCopy);
     }
 }

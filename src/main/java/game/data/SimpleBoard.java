@@ -18,7 +18,6 @@ public class SimpleBoard implements Board{
 
     private void setFlatBoard(List<Integer> flatBoard) {
         this.flatBoard = flatBoard;
-        setJSONBoard(toString());
     }
 
     public int getStreakToWin() {

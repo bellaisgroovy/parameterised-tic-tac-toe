@@ -16,6 +16,7 @@
     <description>Tic-tac-toe with parameterized sizes, dimensions, and player count.</description>
 
     <properties>
+        <java.version>22</java.version>
         <maven.compiler.source>22</maven.compiler.source>
         <maven.compiler.target>22</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -35,7 +36,7 @@
         </dependency>
 
 
-        <!-- Testing -->
+        <!-- Testing
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
@@ -54,7 +55,7 @@
             <artifactId>mockito-junit-jupiter</artifactId>
             <version>5.11.0</version>
             <scope>test</scope>
-        </dependency>
+        </dependency> -->
     </dependencies>
 
     <build>

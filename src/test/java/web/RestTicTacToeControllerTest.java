@@ -1,7 +1,8 @@
 package web;
 
 
-import api.controller.GameController;
+import api.data.BoardRepository;
+import game.boardChecker.BoardChecker;
 import game.data.Board;
 import game.data.SimpleBoard;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,15 +21,18 @@ import static org.mockito.Mockito.when;
 
 
 @ExtendWith(MockitoExtension.class)
-public class RestTicTacToeTest {
+public class RestTicTacToeControllerTest {
     private RestTicTacToeController restController;
 
     @Mock
-    private GameController gameController;
+    private BoardRepository boardRepository;
+
+    @Mock
+    private BoardChecker boardChecker;
 
     @BeforeEach
     public void setUp() throws Exception {
-        restController = new RestTicTacToeController(gameController);
+        restController = new RestTicTacToeController(boardRepository, boardChecker);
     }
 
     private final String BOARD_NAME = "exists";
@@ -36,7 +40,7 @@ public class RestTicTacToeTest {
 
     @Test
     public void get_existing_game() {
-        when(gameController.getBoard(BOARD_NAME)).thenReturn(BOARD);
+        when(boardRepository.getBoard(BOARD_NAME)).thenReturn(BOARD);
 
         BoardResponse actualResponse = restController.getBoard(BOARD_NAME);
 
@@ -47,7 +51,7 @@ public class RestTicTacToeTest {
 
     @Test
     public void get_nonexistent_game() {
-        when(gameController.getBoard(BOARD_NAME)).thenThrow(NoSuchElementException.class);
+        when(boardRepository.getBoard(BOARD_NAME)).thenThrow(NoSuchElementException.class);
 
         assertThrows(NoSuchElementException.class, () -> restController.getBoard(BOARD_NAME));
     }

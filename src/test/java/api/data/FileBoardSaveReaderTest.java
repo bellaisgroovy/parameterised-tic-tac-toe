@@ -1,7 +1,7 @@
 package api.data;
 
-import game.data.Board;
-import game.data.SimpleBoard;
+import game.data.board.Board;
+import game.data.board.SimpleBoard;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

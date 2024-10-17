@@ -2,8 +2,8 @@ package api.controller;
 
 import api.data.BoardRepository;
 import game.boardChecker.BoardChecker;
-import game.data.Board;
-import game.data.SimpleBoard;
+import game.data.board.Board;
+import game.data.board.SimpleBoard;
 
 import java.util.List;
 import java.util.NoSuchElementException;

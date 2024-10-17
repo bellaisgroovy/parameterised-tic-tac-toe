@@ -1,6 +1,6 @@
 package api.controller;
 
-import game.data.Board;
+import game.data.board.Board;
 
 import java.util.List;
 import java.util.NoSuchElementException;

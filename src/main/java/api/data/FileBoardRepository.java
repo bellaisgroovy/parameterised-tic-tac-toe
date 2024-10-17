@@ -1,6 +1,6 @@
 package api.data;
 
-import game.data.Board;
+import game.data.board.Board;
 import org.springframework.stereotype.Component;
 
 import java.util.NoSuchElementException;

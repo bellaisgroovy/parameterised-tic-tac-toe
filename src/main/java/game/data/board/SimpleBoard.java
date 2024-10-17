@@ -1,9 +1,12 @@
-package game.data;
+package game.data.board;
+
+import game.data.board.factory.BoardFactory;
+import game.data.board.factory.SimpleBoardFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SimpleBoard implements Board{
+public class SimpleBoard implements Board {
     public int getNoDimensions() {
         return dimensions;
     }
@@ -51,6 +54,11 @@ public class SimpleBoard implements Board{
     }
 
     @Override
+    public BoardFactory getBoardFactory() {
+        return boardFactory;
+    }
+
+    @Override
     public boolean equals(Object obj) {
         if (!(obj instanceof Board board)) return false;
 
@@ -78,6 +86,8 @@ public class SimpleBoard implements Board{
         }
         return stringFlatBoard.toString();
     }
+
+    private BoardFactory boardFactory = new SimpleBoardFactory();
 
     private final int dimensions;
     private final List<Integer> sizes;

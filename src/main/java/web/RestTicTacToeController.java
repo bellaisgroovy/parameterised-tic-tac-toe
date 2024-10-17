@@ -4,7 +4,7 @@ import api.controller.GameController;
 import api.controller.SimpleGameController;
 import api.data.BoardRepository;
 import game.boardChecker.BoardChecker;
-import game.data.Board;
+import game.data.board.Board;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

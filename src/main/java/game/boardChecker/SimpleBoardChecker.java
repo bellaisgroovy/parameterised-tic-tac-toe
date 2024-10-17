@@ -1,8 +1,8 @@
 package game.boardChecker;
 
-import game.data.Board;
-import game.data.ListBoolBinaryAdder;
-import game.data.SimpleListBoolBinaryAdder;
+import game.data.board.Board;
+import game.data.binary.adder.ListBoolBinaryAdder;
+import game.data.binary.adder.SimpleListBoolBinaryAdder;
 import game.data.GameState;
 
 import java.util.ArrayList;

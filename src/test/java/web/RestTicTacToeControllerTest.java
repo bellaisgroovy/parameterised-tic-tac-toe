@@ -1,18 +1,17 @@
 package web;
 
 
+import api.controller.SimpleGameControllerTest;
 import api.data.BoardRepository;
 import game.boardChecker.BoardChecker;
-import game.data.Board;
-import game.data.SimpleBoard;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import web.data.BoardResponse;
 
-import java.util.List;
 import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -21,7 +20,7 @@ import static org.mockito.Mockito.when;
 
 
 @ExtendWith(MockitoExtension.class)
-public class RestTicTacToeControllerTest {
+public class RestTicTacToeControllerTest extends SimpleGameControllerTest {
     private RestTicTacToeController restController;
 
     @Mock
@@ -30,29 +29,71 @@ public class RestTicTacToeControllerTest {
     @Mock
     private BoardChecker boardChecker;
 
+    @Override
     @BeforeEach
-    public void setUp() throws Exception {
+    public void setUp() {
         restController = new RestTicTacToeController(boardRepository, boardChecker);
     }
 
-    private final String BOARD_NAME = "exists";
-    private final Board BOARD = new SimpleBoard(List.of(3,3), 3);
-
+    @Override
     @Test
-    public void get_existing_game() {
-        when(boardRepository.getBoard(BOARD_NAME)).thenReturn(BOARD);
+    public void get_existing_board() {
+        when(boardRepository.getBoard(GAME_NAME)).thenReturn(BOARD);
 
-        BoardResponse actualResponse = restController.getBoard(BOARD_NAME);
+        BoardResponse actualResponse = restController.getBoard(GAME_NAME);
 
         BoardResponse expectedResponse = new BoardResponse(BOARD.toString(), BOARD.getStreakToWin());
         assertEquals(expectedResponse.getJSONBoard(), actualResponse.getJSONBoard());
         assertEquals(expectedResponse.getStreakToWin(), actualResponse.getStreakToWin());
     }
 
+    @Override
     @Test
-    public void get_nonexistent_game() {
-        when(boardRepository.getBoard(BOARD_NAME)).thenThrow(NoSuchElementException.class);
+    public void get_nonexistent_board() {
+        when(boardRepository.getBoard(GAME_NAME)).thenThrow(NoSuchElementException.class);
 
-        assertThrows(NoSuchElementException.class, () -> restController.getBoard(BOARD_NAME));
+        assertThrows(NoSuchElementException.class, () -> restController.getBoard(GAME_NAME));
+    }
+
+    @Override
+    @Test
+    @Disabled
+    public void play_in_valid_cell() {
+        super.play_in_valid_cell();
+    }
+
+    @Override
+    @Test
+    @Disabled
+    public void play_in_invalid_cell() {
+        super.play_in_invalid_cell();
+    }
+
+    @Override
+    @Test
+    @Disabled
+    public void check_board_with_winner() {
+        super.check_board_with_winner();
+    }
+
+    @Override
+    @Test
+    @Disabled
+    public void check_board_with_draw() {
+        super.check_board_with_draw();
+    }
+
+    @Override
+    @Test
+    @Disabled
+    public void check_ongoing_board() {
+        super.check_ongoing_board();
+    }
+
+    @Override
+    @Test
+    @Disabled
+    public void create_board_works() {
+        super.create_board_works();
     }
 }

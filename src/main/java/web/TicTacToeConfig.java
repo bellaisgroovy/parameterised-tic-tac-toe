@@ -12,17 +12,12 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class TicTacToeConfig {
     @Bean
-    public GameController gameController() {
-        return new SimpleGameController(boardChecker(), boardRepository());
-    }
-
-    private BoardChecker boardChecker() {
+    public BoardChecker boardChecker() {
         return new SimpleBoardChecker();
     }
 
-    private BoardRepository boardRepository() {
+    @Bean
+    public BoardRepository boardRepository() {
         return new FileBoardRepository();
     }
-
-
 }

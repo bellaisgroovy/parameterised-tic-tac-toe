@@ -1,4 +1,6 @@
-package game.data;
+package game.data.board;
+
+import game.data.board.factory.BoardFactory;
 
 import java.util.List;
 
@@ -19,6 +21,8 @@ public interface Board{
     void setCellAt(List<Integer> indices, Integer value);
 
     String toString();
+
+    BoardFactory getBoardFactory();
 
     @Override
     boolean equals(Object obj);

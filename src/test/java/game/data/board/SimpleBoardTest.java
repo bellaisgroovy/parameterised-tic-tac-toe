@@ -53,12 +53,8 @@ public class SimpleBoardTest {
     }
 
     @Test
-    public void construct_0d_board_fails() {
-        try {
-            getBoardFactory().createBoard(List.of(),3 );
-            fail();
-        } catch (NoSuchElementException _) {
-        }
+    public void construct_0d_board() {
+        getBoardFactory().createBoard(List.of(),3 );
     }
 
     @Test

@@ -119,6 +119,8 @@ public class SimpleBoard implements Board {
 
     //populate flatBoard with 0s
     private void populateFlatBoard() {
+        if (getNoDimensions() == 0) {return;}
+
         List<Integer> flatBoardCopy = new ArrayList<>();
 
         int totalNoValues = sizes.getFirst();

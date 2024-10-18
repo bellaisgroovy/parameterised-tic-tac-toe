@@ -87,7 +87,9 @@ public class SimpleBoard implements Board {
         return stringFlatBoard.toString();
     }
 
-    private BoardFactory boardFactory = new SimpleBoardFactory();
+    private final BoardCoordinateValidator coordinateValidator = new BoardCoordinateValidator();
+
+    private final BoardFactory boardFactory = new SimpleBoardFactory();
 
     private final int dimensions;
     private final List<Integer> sizes;
@@ -112,28 +114,7 @@ public class SimpleBoard implements Board {
     }
 
     private void validateIndices(List<Integer> indices) {
-        if (!indicesHaveCorrectNoDimensions(indices)) {
-            throw new IllegalArgumentException(indices + "contains wrong number of indices");
-        }
-        if (!indicesAreInBounds(indices)) {
-            throw new IndexOutOfBoundsException("one or more indices in" + indices + " are not in bounds");
-        }
-    }
-
-    private boolean indicesHaveCorrectNoDimensions(List<Integer> indices) {
-        return indices.size() == getNoDimensions();
-    }
-
-    private boolean indicesAreInBounds(List<Integer> indices) {
-        for (int i = 0; i < indices.size(); i++) {
-            if (indices.get(i) >= getSizes().get(i)) {
-                return false;
-            }
-            if (indices.get(i) < 0) {
-                return false;
-            }
-        }
-        return true;
+        coordinateValidator.validateIndices(indices, getSizes(), getNoDimensions());
     }
 
     //populate flatBoard with 0s

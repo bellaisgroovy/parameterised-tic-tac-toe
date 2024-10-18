@@ -12,7 +12,7 @@ public class FileBoardSaveWriter implements BoardSaveWriter {
         StringBuilder content = new StringBuilder();
         content.append(toBoardFormat(board.getSizes().toString()));
         content.append("\n");
-        content.append(toBoardFormat(board.getFlatBoard().toString()));
+        content.append(toBoardFormat(board.toString()).replaceAll("\\[|]", ""));
         content.append("\n");
         content.append(board.getStreakToWin());
 

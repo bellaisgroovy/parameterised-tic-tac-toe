@@ -61,8 +61,8 @@ public class SimpleBoard implements Board {
     @Override
     public boolean equals(Object obj) {
         if (!(obj instanceof Board board)) return false;
-
-        return getFlatBoard().equals(board.getFlatBoard());
+        // TODO make this use getCellAt and implement iterable
+        return toString().equals(board.toString());
     }
 
     @Override
@@ -84,7 +84,8 @@ public class SimpleBoard implements Board {
                 }
             }
         }
-        return stringFlatBoard.toString();
+
+        return stringFlatBoard.toString().replaceAll(" ", "");
     }
 
     private final BoardCoordinateValidator coordinateValidator = new BoardCoordinateValidator();

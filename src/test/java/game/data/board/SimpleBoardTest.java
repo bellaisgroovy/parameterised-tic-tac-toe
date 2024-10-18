@@ -83,7 +83,7 @@ public class SimpleBoardTest {
     @Test
     public void toString_board() {
         Board board = getBoardFactory().createBoard(List.of(2, 2, 2, 2), 3);
-        String expected = "[[[[0, 0], [0, 0]], [[0, 0], [0, 0]]], [[[0, 0], [0, 0]], [[0, 0], [0, 0]]]]";
+        String expected = "[[[[0,0],[0,0]],[[0,0],[0,0]]],[[[0,0],[0,0]],[[0,0],[0,0]]]]";
         assertEquals(expected, board.toString());
     }
 

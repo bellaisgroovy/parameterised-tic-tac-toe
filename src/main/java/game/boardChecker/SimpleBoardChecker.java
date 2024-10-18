@@ -6,6 +6,7 @@ import game.data.binary.adder.SimpleListBoolBinaryAdder;
 import game.data.GameState;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class SimpleBoardChecker implements BoardChecker {

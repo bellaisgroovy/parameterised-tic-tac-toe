@@ -23,16 +23,15 @@ public class SimpleBoardChecker implements BoardChecker {
         List<List<Integer>> directions = getDirections(board);
 
         // check for matches in every direction from every element in board
-        // initialise coordinate
-        List<Integer> firstCoordinate = new ArrayList<>();
-        for (int i = 0; i < board.getNoDimensions(); i++) {
-            firstCoordinate.add(0);
-        }
-        List<Integer> coordinate = new ArrayList<>(firstCoordinate);
+        Iterator<List<Integer>> iterator = board.iterator();
 
         boolean hasEmptyCell = false;
+
         int winner = GameState.ONGOING.value;
-        do {
+
+        while (winner == GameState.ONGOING.value && iterator.hasNext()) {
+            List<Integer> coordinate = iterator.next();
+
             int currentPlayer = board.getCellAt(coordinate);
 
             if (currentPlayer == 0) {
@@ -41,10 +40,8 @@ public class SimpleBoardChecker implements BoardChecker {
 
             if (cellIsWinning(board, coordinate, directions)) {
                 winner = currentPlayer;
-            } else {
-                coordinate = getNextBoardCoordinate(board.getSizes(), coordinate);
             }
-        } while (winner == GameState.ONGOING.value && !coordinate.equals(firstCoordinate));
+        }
 
         if (!hasEmptyCell && winner == GameState.ONGOING.value) {
             winner = GameState.DRAW.value;
@@ -62,23 +59,6 @@ public class SimpleBoardChecker implements BoardChecker {
             }
         }
         return false;
-    }
-
-    // adds 1 to the rightmost item in list unless it is already at max in which case it rolls over one place left
-    // like a number system where the base changes at each
-    private List<Integer> getNextBoardCoordinate(List<Integer> sizes, List<Integer> coordinate) {
-        List<Integer> newCoordinate = new ArrayList<>(coordinate);
-        int i = newCoordinate.size() -1;
-          while (i >= 0) {
-            if (newCoordinate.get(i) >= sizes.get(i) - 1) {
-                newCoordinate.set(i, 0);
-                i--;
-            } else {
-                newCoordinate.set(i, newCoordinate.get(i) + 1);
-                break;
-            }
-        }
-        return newCoordinate;
     }
 
     private boolean isCellWinningInDirection(Board board, List<Integer> coordinate, List<Integer> direction) {

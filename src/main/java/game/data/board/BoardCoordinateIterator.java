@@ -23,8 +23,8 @@ public class BoardCoordinateIterator implements Iterator<List<Integer>> {
     }
 
     private List<Integer> coordinate;
-    private List<Integer> sizes;
-    private List<Integer> sizesAsIndex;
+    private final List<Integer> sizes;
+    private final List<Integer> sizesAsIndex;
 
     /**
      * Adds 1 to the rightmost item in list unless it is already at max in which case it rolls over one place left

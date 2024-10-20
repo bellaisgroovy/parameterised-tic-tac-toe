@@ -13,9 +13,11 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public class SimpleBoardTest {
     private BoardFactory boardFactory;
+
     protected BoardFactory getBoardFactory() {
         return boardFactory;
     }
+
     protected void setBoardFactory(BoardFactory boardFactory) {
         this.boardFactory = boardFactory;
     }

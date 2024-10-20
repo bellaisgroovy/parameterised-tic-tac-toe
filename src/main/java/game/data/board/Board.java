@@ -2,12 +2,13 @@ package game.data.board;
 
 import game.data.board.factory.BoardFactory;
 
+import java.util.Iterator;
 import java.util.List;
 
 /**
  * Manages an n dimensional List with regular lengths. All lists in one dimension must have the same length.
  */
-public interface Board{
+public interface Board {
     int getNoDimensions();
 
     List<Integer> getSizes();
@@ -24,4 +25,8 @@ public interface Board{
 
     @Override
     boolean equals(Object obj);
+
+    default Iterator<List<Integer>> iterator() {
+        return new BoardCoordinateIterator(this);
+    }
 }

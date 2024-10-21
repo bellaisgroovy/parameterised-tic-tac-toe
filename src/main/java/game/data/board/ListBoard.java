@@ -2,11 +2,13 @@ package game.data.board;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import game.data.BoardEquality;
 import game.data.board.factory.BoardFactory;
 import game.data.board.factory.ListBoardFactory;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 public class ListBoard implements Board {
@@ -51,6 +53,12 @@ public class ListBoard implements Board {
     @Override
     public BoardFactory getBoardFactory() {
         return boardFactory;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Board)) return false;
+        return boardEquality.equals(this, (Board) obj);
     }
 
     @Override
@@ -121,6 +129,8 @@ public class ListBoard implements Board {
     }
 
     BoardCoordinateValidator coordinateValidator = new BoardCoordinateValidator();
+
+    private final BoardEquality boardEquality = new BoardEquality();
 
     private final int streakToWin;
 

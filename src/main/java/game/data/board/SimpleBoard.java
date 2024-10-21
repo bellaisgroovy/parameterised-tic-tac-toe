@@ -1,9 +1,11 @@
 package game.data.board;
 
+import game.data.BoardEquality;
 import game.data.board.factory.BoardFactory;
 import game.data.board.factory.SimpleBoardFactory;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class SimpleBoard implements Board {
@@ -60,9 +62,8 @@ public class SimpleBoard implements Board {
 
     @Override
     public boolean equals(Object obj) {
-        if (!(obj instanceof Board board)) return false;
-        // TODO make this use getCellAt and implement iterable
-        return toString().equals(board.toString());
+        if (!(obj instanceof Board)) return false;
+        return boardEquality.equals(this, (Board) obj);
     }
 
     @Override
@@ -89,6 +90,8 @@ public class SimpleBoard implements Board {
     }
 
     private final BoardCoordinateValidator coordinateValidator = new BoardCoordinateValidator();
+
+    private final BoardEquality boardEquality = new BoardEquality();
 
     private final BoardFactory boardFactory = new SimpleBoardFactory();
 

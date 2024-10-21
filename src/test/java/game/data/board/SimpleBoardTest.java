@@ -7,8 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class SimpleBoardTest {
     private BoardFactory boardFactory;
@@ -24,6 +23,53 @@ public class SimpleBoardTest {
     @BeforeEach
     public void setUp() {
         setBoardFactory(new SimpleBoardFactory());
+    }
+
+    @Test
+    public void equals_is_equal() {
+        Board board1 = getBoardFactory().createBoard(List.of(3,3,3), 3);
+        Board board2 = getBoardFactory().createBoard(List.of(3,3,3), 3);
+        boolean equal = board1.equals(board2);
+        assertTrue(equal);
+    }
+
+    @Test
+    public void equals_different_values() {
+        Board board1 = getBoardFactory().createBoard(List.of(3,3,3), 3);
+        Board board2 = getBoardFactory().createBoard(List.of(3,3,3), 3);
+        board2.setCellAt(List.of(2,1,0), 3);
+
+        boolean equal = board1.equals(board2);
+        assertFalse(equal);
+    }
+
+    @Test
+    public void equals_different_dimensions() {
+        Board board1 = getBoardFactory().createBoard(List.of(3,3), 3);
+        Board board2 = getBoardFactory().createBoard(List.of(3,3,3), 3);
+        board2.setCellAt(List.of(1,2,1), 3);
+
+        boolean equal = board1.equals(board2);
+        assertFalse(equal);
+    }
+
+    @Test
+    public void equals_different_sizes() {
+        Board board1 = getBoardFactory().createBoard(List.of(3,3,8), 3);
+        Board board2 = getBoardFactory().createBoard(List.of(3,3,3), 3);
+        board2.setCellAt(List.of(1,2,1), 3);
+
+        boolean equal = board1.equals(board2);
+        assertFalse(equal);
+    }
+
+    @Test
+    public void equals_different_streak_to_win() {
+        Board board1 = getBoardFactory().createBoard(List.of(3,3,3), 99);
+        Board board2 = getBoardFactory().createBoard(List.of(3,3,3), 3);
+
+        boolean equal = board1.equals(board2);
+        assertFalse(equal);
     }
 
     @Test

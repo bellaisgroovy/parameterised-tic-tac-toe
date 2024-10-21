@@ -5,7 +5,6 @@ import game.data.board.factory.BoardFactory;
 import game.data.board.factory.SimpleBoardFactory;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class SimpleBoard implements Board {

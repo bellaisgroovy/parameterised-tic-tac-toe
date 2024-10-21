@@ -8,7 +8,6 @@ import game.data.board.factory.ListBoardFactory;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
 public class ListBoard implements Board {
@@ -78,10 +77,6 @@ public class ListBoard implements Board {
 
     private void setBoard(List<Object> board) {
         this.board = board;
-    }
-
-    private void addToBoard(Object item) {
-        board.add(item);
     }
 
     private List<Object> createInnerSection(int size) {

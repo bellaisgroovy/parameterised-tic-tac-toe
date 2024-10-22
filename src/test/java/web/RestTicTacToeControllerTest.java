@@ -5,7 +5,6 @@ import api.controller.SimpleGameControllerTest;
 import api.data.BoardRepository;
 import game.boardChecker.BoardChecker;
 import game.data.board.Board;
-import game.data.board.SimpleBoard;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -13,7 +12,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.List;
 import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.*;

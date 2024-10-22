@@ -2,7 +2,9 @@ package api.data;
 
 import game.data.board.Board;
 import game.data.board.SimpleBoard;
-import org.junit.jupiter.api.BeforeAll;
+import game.data.board.factory.BoardFactory;
+import game.data.board.factory.ListBoardFactory;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -11,30 +13,45 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class FileBoardSaveWriterTest {
-    @BeforeAll
-    public static void instantiateWriter() {
+    @BeforeEach
+    public void instantiateWriter() {
         File saveFolder = new File("src/test/resources/saves");
         writer = new FileBoardSaveWriter();
         writer.setSaveFolder(saveFolder);
 
         reader = new FileBoardSaveReader();
         reader.setSaveFolder(saveFolder);
+
+        setBoardFactory(new ListBoardFactory());
     }
 
-    static FileBoardSaveWriter writer;
-    static FileBoardSaveReader reader;
+    private FileBoardSaveWriter writer;
+
+    private FileBoardSaveReader reader;
+
+    private BoardFactory boardFactory;
+
+    private void setBoardFactory(BoardFactory boardFactory) {
+        this.boardFactory = boardFactory;
+    }
 
     @Test
     public void save_board_overwrite() {
         String saveName = "overwritten_4x5";
         int streakToWin = 4;
         // save one board
-        Board originalBoard = new SimpleBoard(List.of(4,5), streakToWin, List.of(1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2));
+        Board originalBoard = boardFactory.createBoard(List.of(4,5), streakToWin);
+        originalBoard.setCellAt(List.of(0,0), 1);
+        originalBoard.setCellAt(List.of(3,4), 2);
+
         writer.saveBoard(originalBoard, saveName);
         assertEquals(originalBoard, reader.getBoard(saveName));
 
         //save another board
-        Board newBoard = new SimpleBoard(List.of(4,5), streakToWin, List.of(0,0,0,0,0,0,1,0,0,0,0,0,0,2,0,0,0,0,0,0));
+        Board newBoard = boardFactory.createBoard(List.of(4,5), streakToWin);
+        newBoard.setCellAt(List.of(0,0), 2);
+        newBoard.setCellAt(List.of(3,4), 1);
+
         writer.saveBoard(newBoard, saveName);
         assertEquals(newBoard, reader.getBoard(saveName));
     }

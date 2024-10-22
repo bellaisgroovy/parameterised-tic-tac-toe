@@ -120,9 +120,9 @@ public class ListBoard implements Board {
 
     private final BoardEquality boardEquality = new BoardEquality();
 
-    private int streakToWin;
+    private final int streakToWin;
 
-    private List<Integer> sizes;
+    private final List<Integer> sizes;
 
-    private ObjectMapper objectMapper;
+    private final ObjectMapper objectMapper;
 }

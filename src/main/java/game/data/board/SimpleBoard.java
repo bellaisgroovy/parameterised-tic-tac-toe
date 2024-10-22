@@ -98,9 +98,9 @@ public class SimpleBoard implements Board {
 
     private final BoardEquality boardEquality = new BoardEquality();
 
-    private List<Integer> sizes;
+    private final List<Integer> sizes;
 
-    private int streakToWin;
+    private final int streakToWin;
 
     private List<Integer> flatBoard; // formatted like python literal array syntax without []
 

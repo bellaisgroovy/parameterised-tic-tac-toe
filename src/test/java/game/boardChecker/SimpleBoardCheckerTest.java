@@ -1,8 +1,9 @@
 package game.boardChecker;
 
 import game.data.GameState;
-import game.data.board.SimpleBoard;
 import game.data.board.Board;
+import game.data.board.factory.BoardFactory;
+import game.data.board.factory.ListBoardFactory;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -10,6 +11,8 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SimpleBoardCheckerTest {
+    private final BoardFactory boardFactory = new ListBoardFactory();
+    
     // tests for many directions of diagonal in many dimensions
     @Test
     public void top_row_3x3_board_3_to_win() {
@@ -18,7 +21,7 @@ public class SimpleBoardCheckerTest {
         int streakToWin = 3;
 
         // create board where top three slots are set to one
-        Board board = new SimpleBoard(boardSize, streakToWin);
+        Board board = boardFactory.createBoard(boardSize, streakToWin);
         board.setCellAt(List.of(0,2), player);
         board.setCellAt(List.of(1,2), player);
         board.setCellAt(List.of(2,2), player);
@@ -35,7 +38,7 @@ public class SimpleBoardCheckerTest {
         int streakToWin = 3;
 
         // create board where top three slots are set to one
-        Board board = new SimpleBoard(boardSize, streakToWin);
+        Board board = boardFactory.createBoard(boardSize, streakToWin);
         board.setCellAt(List.of(0,2), player);
         board.setCellAt(List.of(1,2), player);
         board.setCellAt(List.of(2,2), player);
@@ -52,7 +55,7 @@ public class SimpleBoardCheckerTest {
         int player = 2;
 
         // create board where top three slots are set to one
-        Board board = new SimpleBoard(boardSize, streakToWin);
+        Board board = boardFactory.createBoard(boardSize, streakToWin);
         board.setCellAt(List.of(0,0), player);
         board.setCellAt(List.of(1,1), player);
         board.setCellAt(List.of(2,2), player);
@@ -69,7 +72,7 @@ public class SimpleBoardCheckerTest {
         int player = 2;
 
         // create board where top three slots are set to one
-        Board board = new SimpleBoard(boardSize, streakToWin);
+        Board board = boardFactory.createBoard(boardSize, streakToWin);
         board.setCellAt(List.of(0,2), player);
         board.setCellAt(List.of(1,1), player);
         board.setCellAt(List.of(2,0), player);
@@ -86,7 +89,7 @@ public class SimpleBoardCheckerTest {
         int player = 7;
 
         // create board where top three slots are set to one
-        Board board = new SimpleBoard(boardSize, streakToWin);
+        Board board = boardFactory.createBoard(boardSize, streakToWin);
         board.setCellAt(List.of(0,3,0), player);
         board.setCellAt(List.of(1,2,1), player);
         board.setCellAt(List.of(2,1,2), player);
@@ -104,7 +107,7 @@ public class SimpleBoardCheckerTest {
         int player = 7;
 
         // create board where top three slots are set to one
-        Board board = new SimpleBoard(boardSize, streakToWin);
+        Board board = boardFactory.createBoard(boardSize, streakToWin);
         board.setCellAt(List.of(3,3,0), player);
         board.setCellAt(List.of(2,2,1), player);
         board.setCellAt(List.of(1,1,2), player);
@@ -122,7 +125,7 @@ public class SimpleBoardCheckerTest {
         int player = 5;
 
         // create board where top three slots are set to one
-        Board board = new SimpleBoard(boardSize, streakToWin);
+        Board board = boardFactory.createBoard(boardSize, streakToWin);
         board.setCellAt(List.of(3,0,0), player);
         board.setCellAt(List.of(2,1,1), player);
         board.setCellAt(List.of(1,2,2), player);
@@ -140,7 +143,7 @@ public class SimpleBoardCheckerTest {
         int player = 11;
 
         // create board where top three slots are set to one
-        Board board = new SimpleBoard(boardSize, streakToWin);
+        Board board = boardFactory.createBoard(boardSize, streakToWin);
         board.setCellAt(List.of(0,0,0), player);
         board.setCellAt(List.of(1,1,1), player);
         board.setCellAt(List.of(2,2,2), player);
@@ -159,7 +162,7 @@ public class SimpleBoardCheckerTest {
         int player = 1;
 
         // create board where top three slots are set to one
-        Board board = new SimpleBoard(boardSize, streakToWin);
+        Board board = boardFactory.createBoard(boardSize, streakToWin);
         board.setCellAt(List.of(0,2), player);
         board.setCellAt(List.of(1,2), player);
 
@@ -175,7 +178,7 @@ public class SimpleBoardCheckerTest {
         int player = 1;
 
         // create board where top three slots are set to one
-        Board board = new SimpleBoard(boardSize, streakToWin);
+        Board board = boardFactory.createBoard(boardSize, streakToWin);
         board.setCellAt(List.of(0,1), player);
         board.setCellAt(List.of(1,1), player);
         board.setCellAt(List.of(2,1), player);
@@ -192,7 +195,7 @@ public class SimpleBoardCheckerTest {
         List<Integer> boardSize = List.of(3,6,4,2);
         int streakToWin = 4;
 
-        Board board = new SimpleBoard(boardSize, streakToWin);
+        Board board = boardFactory.createBoard(boardSize, streakToWin);
         BoardChecker boardChecker = new SimpleBoardChecker();
 
         assertEquals(GameState.ONGOING.value, boardChecker.winningPlayer(board));
@@ -201,7 +204,7 @@ public class SimpleBoardCheckerTest {
     @Test
     public void draw() {
         int streakToWin = 3;
-        Board board = new SimpleBoard(List.of(3,3), streakToWin);
+        Board board = boardFactory.createBoard(List.of(3,3), streakToWin);
         int nought = 1;
         int cross = 2;
         board.setCellAt(List.of(0,0), nought);

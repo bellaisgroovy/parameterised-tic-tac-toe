@@ -4,7 +4,8 @@ import api.data.BoardRepository;
 import game.boardChecker.BoardChecker;
 import game.data.board.Board;
 import game.data.GameState;
-import game.data.board.SimpleBoard;
+import game.data.board.factory.BoardFactory;
+import game.data.board.factory.ListBoardFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -27,13 +28,15 @@ public class SimpleGameControllerTest {
 
     private GameController gameController;
 
+    private final BoardFactory boardFactory = new ListBoardFactory();
+
     @BeforeEach
     public void setUp() {
         gameController = new SimpleGameController(boardChecker, boardRepository);
     }
 
     protected final String GAME_NAME = "existing_3x3";
-    protected final Board BOARD = new SimpleBoard(List.of(3,3), 3);
+    protected final Board BOARD = boardFactory.createBoard(List.of(3,3), 3);
 
     @Test
     public void get_existing_board() {
@@ -53,7 +56,7 @@ public class SimpleGameControllerTest {
 
     @Test
     public void play_in_valid_cell() {
-        Board board = new SimpleBoard(List.of(3,3), 3);
+        Board board = boardFactory.createBoard(List.of(3,3), 3);
         when(boardRepository.getBoard(GAME_NAME)).thenReturn(board);
 
         boolean isValidMove = gameController.playInCell(List.of(0,0), 1, GAME_NAME);

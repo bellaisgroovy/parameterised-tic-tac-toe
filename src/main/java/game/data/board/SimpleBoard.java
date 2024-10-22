@@ -1,9 +1,7 @@
 package game.data.board;
 
 import game.data.BoardEquality;
-import game.data.board.factory.BoardFactory;
 import game.data.board.factory.ListBoardFactory;
-import game.data.board.factory.SimpleBoardFactory;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -54,8 +52,6 @@ public class SimpleBoard implements Board {
         int flatIndex = getFlatIndex(indices);
         getFlatBoard().set(flatIndex, value);
     }
-
-    public SimpleBoard() {};
 
     public SimpleBoard(List<Integer> sizes, int streakToWin) {
         this.sizes = sizes;

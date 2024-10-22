@@ -3,15 +3,12 @@ package game.data.board;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import game.data.BoardEquality;
-import game.data.board.factory.BoardFactory;
-import game.data.board.factory.ListBoardFactory;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class ListBoard implements Board {
-    public ListBoard(){};
 
     public ListBoard(List<Integer> sizes, int streakToWin) {
         this.sizes = sizes;

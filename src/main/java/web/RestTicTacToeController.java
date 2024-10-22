@@ -17,10 +17,9 @@ import java.util.NoSuchElementException;
  */
 @RestController
 public class RestTicTacToeController {
-
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
-    private GameController gameController;
+    private final GameController gameController;
 
     @Autowired
     public RestTicTacToeController(BoardRepository boardRepository, BoardChecker boardChecker) {

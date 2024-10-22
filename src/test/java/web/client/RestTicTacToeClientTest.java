@@ -33,8 +33,7 @@ public class RestTicTacToeClientTest extends SimpleGameControllerTest {
     private static final String BASE_URL = "http://localhost:";
     private static final String BOARD_EXTENSION = "/board";
 
-    private RestTemplate restTemplate = new RestTemplate();
-    private Random random = new Random();
+    private final RestTemplate restTemplate = new RestTemplate();
 
     @Override
     @Disabled

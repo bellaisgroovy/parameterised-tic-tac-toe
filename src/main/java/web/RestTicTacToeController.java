@@ -39,6 +39,10 @@ public class RestTicTacToeController {
         return gameController.getBoard(gameName);
     }
 
+    /**
+     * returns 404 not found when element can't be found
+     * @param e exception
+     */
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(NoSuchElementException.class)
     public void handleBoardDoesntExist(NoSuchElementException e) {

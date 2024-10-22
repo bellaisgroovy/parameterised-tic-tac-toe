@@ -8,10 +8,6 @@ import java.util.Iterator;
 import java.util.List;
 
 public class SimpleBoard implements Board {
-    public int getNoDimensions() {
-        return sizes.size();
-    }
-
     public List<Integer> getSizes() {
         return sizes;
     }
@@ -120,17 +116,17 @@ public class SimpleBoard implements Board {
     }
 
     private void validateIndices(List<Integer> indices) {
-        coordinateValidator.validateIndices(indices, getSizes(), getNoDimensions());
+        coordinateValidator.validateIndices(indices, getSizes(), getSizes().size());
     }
 
     //populate flatBoard with 0s
     private void populateFlatBoard() {
-        if (getNoDimensions() == 0) {return;}
+        if (getSizes().isEmpty()) {return;}
 
         List<Integer> flatBoardCopy = new ArrayList<>();
 
         int totalNoValues = sizes.getFirst();
-        for (int i = 1; i < getNoDimensions(); i++) {
+        for (int i = 1; i < getSizes().size(); i++) {
             totalNoValues = totalNoValues * this.sizes.get(i);
         }
 

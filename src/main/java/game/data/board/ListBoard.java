@@ -9,6 +9,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class ListBoard implements Board {
+    public ListBoard() {}
 
     public ListBoard(List<Integer> sizes, int streakToWin) {
         this.sizes = sizes;
@@ -16,11 +17,6 @@ public class ListBoard implements Board {
         objectMapper = new ObjectMapper();
 
         populateBoard();
-    }
-
-    @Override
-    public int getNoDimensions() {
-        return sizes.size();
     }
 
     @Override
@@ -62,6 +58,8 @@ public class ListBoard implements Board {
         }
     }
 
+
+
     private List<Object> board;
 
     public List<Object> getBoard() {
@@ -91,7 +89,7 @@ public class ListBoard implements Board {
 
 
     private void populateBoard() {
-        if (getNoDimensions() == 0) {return;}
+        if (getSizes().isEmpty()) {return;}
         setBoard(createBoard(getSizes(), 1, new ArrayList<>()));
     }
 
@@ -113,16 +111,16 @@ public class ListBoard implements Board {
     }
 
     private void validateIndices(List<Integer> indices) {
-        coordinateValidator.validateIndices(indices, getSizes(), getNoDimensions());
+        coordinateValidator.validateIndices(indices, getSizes(), getSizes().size());
     }
 
     BoardCoordinateValidator coordinateValidator = new BoardCoordinateValidator();
 
     private final BoardEquality boardEquality = new BoardEquality();
 
-    private final int streakToWin;
+    private int streakToWin;
 
-    private final List<Integer> sizes;
+    private List<Integer> sizes;
 
-    private final ObjectMapper objectMapper;
+    private ObjectMapper objectMapper;
 }

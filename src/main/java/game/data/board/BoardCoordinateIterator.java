@@ -6,7 +6,7 @@ import java.util.List;
 
 public class BoardCoordinateIterator implements Iterator<List<Integer>> {
     public BoardCoordinateIterator(Board board) {
-        initializeCoordinate(board.getNoDimensions());
+        initializeCoordinate(board.getSizes().size());
         sizes = board.getSizes();
         sizesAsIndex = board.getSizes().stream().map((size) -> size - 1).toList();
     }

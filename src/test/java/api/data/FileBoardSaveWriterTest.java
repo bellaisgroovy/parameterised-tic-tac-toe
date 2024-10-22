@@ -60,7 +60,9 @@ public class FileBoardSaveWriterTest {
         String saveName = "fresh_board_2x1";
 
         // save one board
-        Board board = new SimpleBoard(List.of(2,1), 2, List.of(1,2));
+        Board board = boardFactory.createBoard(List.of(2, 1), 2);
+        board.setCellAt(List.of(0,0), 1);
+        board.setCellAt(List.of(1,0), 2);
         writer.saveBoard(board, saveName);
         assertEquals(board, reader.getBoard(saveName));
     }

@@ -128,7 +128,7 @@ public class SimpleBoardTest {
     public void construct_9d_board() {
         Board board = getBoardFactory().createBoard(List.of(7,4,1,8,4,9,3,6,4), 3);
         int expected = 9;
-        assertEquals(expected, board.getNoDimensions());
+        assertEquals(expected, board.getSizes().size());
     }
 
     @Test
@@ -184,7 +184,7 @@ public class SimpleBoardTest {
         List<Integer> sizes = List.of(5,4,3,7,5, 2,1);
         Board board = getBoardFactory().createBoard(sizes, 3);
         int expectedDimensions = sizes.size();
-        assertEquals(expectedDimensions, board.getNoDimensions());
+        assertEquals(expectedDimensions, board.getSizes().size());
     }
 
     @Test

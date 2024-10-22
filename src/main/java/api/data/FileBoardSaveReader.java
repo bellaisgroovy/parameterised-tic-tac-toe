@@ -1,10 +1,13 @@
 package api.data;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import game.data.board.Board;
+import game.data.board.ListBoard;
 import game.data.board.SimpleBoard;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -14,9 +17,11 @@ public class FileBoardSaveReader implements BoardSaveReader{
 
     @Override
     public Board getBoard(String name) throws NoSuchElementException {
-        Scanner scanner = findBoard(name);
-
-        return readBoard(scanner);
+        try {
+            return mapper.readValue(new File(saveFolder.getPath() + "/" + name + ".board"), ListBoard.class);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void setSaveFolder(File saveFolder) {
@@ -25,31 +30,6 @@ public class FileBoardSaveReader implements BoardSaveReader{
 
     private File saveFolder = new File("src/main/resources/saves");
 
-    private Board readBoard(Scanner scanner) {
-        String[] sizesStringArray = scanner.nextLine().split(",");
-        List<Integer> sizes = stringArrayToIntegerList(sizesStringArray);
+    private final ObjectMapper mapper = new ObjectMapper();
 
-        String[] flatBoardStringArray = scanner.nextLine().split(",");
-        List<Integer> flatBoard = stringArrayToIntegerList(flatBoardStringArray);
-
-        String streakToWinString = scanner.nextLine();
-        int streakToWin = Integer.parseInt(streakToWinString);
-
-        return new SimpleBoard(sizes, streakToWin, flatBoard);
-    }
-
-    private List<Integer> stringArrayToIntegerList(String[] array) {
-        List<Integer> items = new ArrayList<>();
-        for (String item : array) items.add(Integer.parseInt(item));
-        return items;
-    }
-
-    private Scanner findBoard(String name) throws NoSuchElementException {
-        File save = new File(saveFolder.getPath() + "/" + name + ".board");
-        try {
-            return new Scanner(save);
-        } catch (FileNotFoundException e) {
-            throw new NoSuchElementException("No board called " + name + " was found");
-        }
-    }
 }

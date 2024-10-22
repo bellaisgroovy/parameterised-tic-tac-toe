@@ -100,7 +100,7 @@ public class SimpleBoardChecker implements BoardChecker {
 
     private List<List<Integer>> getDirections(Board board) {
         //populate directions
-        List<List<Boolean>> directionsBool = getAllBinaryCombinationsForNBits(board.getNoDimensions());
+        List<List<Boolean>> directionsBool = getAllBinaryCombinationsForNBits(board.getSizes().size());
         directionsBool.removeFirst(); // the first item is 0 in all components, which isn't a direction
         List<List<Integer>> directions = new ArrayList<>();
         directionsBool.forEach(direction -> directions.add(boolToInt(direction)));

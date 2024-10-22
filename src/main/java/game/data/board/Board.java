@@ -15,13 +15,13 @@ public interface Board {
 
     int getStreakToWin();
 
+    List<Object> getBoard();
+
     int getCellAt(List<Integer> indices);
 
     void setCellAt(List<Integer> indices, Integer value);
 
     String toString();
-
-    BoardFactory getBoardFactory();
 
     @Override
     boolean equals(Object obj);

@@ -4,14 +4,16 @@ package web;
 import api.controller.SimpleGameControllerTest;
 import api.data.BoardRepository;
 import game.boardChecker.BoardChecker;
+import game.data.board.Board;
+import game.data.board.ListBoard;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import web.data.BoardResponse;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -40,11 +42,9 @@ public class RestTicTacToeControllerTest extends SimpleGameControllerTest {
     public void get_existing_board() {
         when(boardRepository.getBoard(GAME_NAME)).thenReturn(BOARD);
 
-        BoardResponse actualResponse = restController.getBoard(GAME_NAME);
+        Board actualResponse = restController.getBoard(GAME_NAME);
 
-        BoardResponse expectedResponse = new BoardResponse(BOARD.toString(), BOARD.getStreakToWin());
-        assertEquals(expectedResponse.getJSONBoard(), actualResponse.getJSONBoard());
-        assertEquals(expectedResponse.getStreakToWin(), actualResponse.getStreakToWin());
+        assertEquals(BOARD, actualResponse);
     }
 
     @Override

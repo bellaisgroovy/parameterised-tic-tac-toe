@@ -11,10 +11,11 @@ import java.util.Collections;
 import java.util.List;
 
 public class ListBoard implements Board {
+    public ListBoard(){};
+
     public ListBoard(List<Integer> sizes, int streakToWin) {
         this.sizes = sizes;
         this.streakToWin = streakToWin;
-        this.dimensions = sizes.size();
         objectMapper = new ObjectMapper();
 
         populateBoard();
@@ -22,7 +23,7 @@ public class ListBoard implements Board {
 
     @Override
     public int getNoDimensions() {
-        return this.dimensions;
+        return sizes.size();
     }
 
     @Override
@@ -50,11 +51,6 @@ public class ListBoard implements Board {
     }
 
     @Override
-    public BoardFactory getBoardFactory() {
-        return boardFactory;
-    }
-
-    @Override
     public boolean equals(Object obj) {
         if (!(obj instanceof Board)) return false;
         return boardEquality.equals(this, (Board) obj);
@@ -71,7 +67,7 @@ public class ListBoard implements Board {
 
     private List<Object> board;
 
-    private List<Object> getBoard() {
+    public List<Object> getBoard() {
         return board;
     }
 
@@ -127,13 +123,9 @@ public class ListBoard implements Board {
 
     private final BoardEquality boardEquality = new BoardEquality();
 
-    private final int streakToWin;
+    private int streakToWin;
 
-    private final int dimensions;
+    private List<Integer> sizes;
 
-    private final List<Integer> sizes;
-
-    private final ObjectMapper objectMapper;
-
-    private final BoardFactory boardFactory = new ListBoardFactory();
+    private ObjectMapper objectMapper;
 }

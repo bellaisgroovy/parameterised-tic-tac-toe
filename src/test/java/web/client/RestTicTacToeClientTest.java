@@ -2,6 +2,8 @@ package web.client;
 
 import api.controller.SimpleGameControllerTest;
 import api.data.BoardRepository;
+import game.data.board.Board;
+import game.data.board.ListBoard;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -44,12 +46,9 @@ public class RestTicTacToeClientTest extends SimpleGameControllerTest {
         when(boardRepository.getBoard(GAME_NAME)).thenReturn(BOARD);
         String url = BASE_URL + port + BOARD_EXTENSION + "/" + GAME_NAME;
 
-        BoardResponse actualResponse = restTemplate.getForObject(url, BoardResponse.class);
+        Board actualResponse = restTemplate.getForObject(url, ListBoard.class);
 
-        BoardResponse expectedResponse = new BoardResponse(BOARD.toString(), BOARD.getStreakToWin());
-        assertNotNull(actualResponse);
-        assertEquals(expectedResponse.getJSONBoard(), actualResponse.getJSONBoard());
-        assertEquals(expectedResponse.getStreakToWin(), actualResponse.getStreakToWin());
+        assertEquals(BOARD, actualResponse);
     }
 
     @Override

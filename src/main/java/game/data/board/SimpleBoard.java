@@ -2,14 +2,16 @@ package game.data.board;
 
 import game.data.BoardEquality;
 import game.data.board.factory.BoardFactory;
+import game.data.board.factory.ListBoardFactory;
 import game.data.board.factory.SimpleBoardFactory;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class SimpleBoard implements Board {
     public int getNoDimensions() {
-        return dimensions;
+        return sizes.size();
     }
 
     public List<Integer> getSizes() {
@@ -28,6 +30,19 @@ public class SimpleBoard implements Board {
         return streakToWin;
     }
 
+    @Override
+    public List<Object> getBoard() {
+        Board listBoard = new ListBoardFactory().createBoard(getSizes(), getStreakToWin());
+        Iterator<List<Integer>> listBoardIterator = listBoard.iterator();
+        Iterator<List<Integer>> thisIterator = iterator();
+
+        while (listBoardIterator.hasNext()) {
+            listBoard.setCellAt(listBoardIterator.next(), getCellAt(thisIterator.next()));
+        }
+
+        return listBoard.getBoard();
+    }
+
     public int getCellAt(List<Integer> indices) {
         validateIndices(indices);
         int flatIndex = getFlatIndex(indices);
@@ -40,23 +55,18 @@ public class SimpleBoard implements Board {
         getFlatBoard().set(flatIndex, value);
     }
 
+    public SimpleBoard() {};
+
     public SimpleBoard(List<Integer> sizes, int streakToWin) {
-        this.dimensions = sizes.size();
         this.sizes = sizes;
         populateFlatBoard();
         this.streakToWin = streakToWin;
     }
 
     public SimpleBoard(List<Integer> sizes, int streakToWin, List<Integer> flatBoard) {
-        this.dimensions = sizes.size();
         this.sizes = sizes;
         setFlatBoard(flatBoard);
         this.streakToWin = streakToWin;
-    }
-
-    @Override
-    public BoardFactory getBoardFactory() {
-        return boardFactory;
     }
 
     @Override
@@ -92,12 +102,9 @@ public class SimpleBoard implements Board {
 
     private final BoardEquality boardEquality = new BoardEquality();
 
-    private final BoardFactory boardFactory = new SimpleBoardFactory();
+    private List<Integer> sizes;
 
-    private final int dimensions;
-    private final List<Integer> sizes;
-
-    private final int streakToWin;
+    private int streakToWin;
 
     private List<Integer> flatBoard; // formatted like python literal array syntax without []
 
@@ -127,7 +134,7 @@ public class SimpleBoard implements Board {
         List<Integer> flatBoardCopy = new ArrayList<>();
 
         int totalNoValues = sizes.getFirst();
-        for (int i = 1; i < this.dimensions; i++) {
+        for (int i = 1; i < getNoDimensions(); i++) {
             totalNoValues = totalNoValues * this.sizes.get(i);
         }
 

@@ -1,7 +1,5 @@
 package web;
 
-import api.controller.GameController;
-import api.controller.SimpleGameController;
 import api.data.BoardRepository;
 import api.data.FileBoardRepository;
 import game.boardChecker.BoardChecker;

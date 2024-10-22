@@ -10,8 +10,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import web.data.BoardResponse;
-
 import java.util.NoSuchElementException;
 
 /**
@@ -38,9 +36,8 @@ public class RestTicTacToeController {
      * if a specified board does not exist
      */
     @GetMapping("/board/{gameName}")
-    public BoardResponse getBoard(@PathVariable String gameName) throws NoSuchElementException {
-        Board board = gameController.getBoard(gameName);
-        return new BoardResponse(board.toString(), board.getStreakToWin());
+    public Board getBoard(@PathVariable String gameName) throws NoSuchElementException {
+        return gameController.getBoard(gameName);
     }
 
     @ResponseStatus(HttpStatus.NOT_FOUND)

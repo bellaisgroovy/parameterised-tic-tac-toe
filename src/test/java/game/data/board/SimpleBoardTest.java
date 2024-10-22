@@ -26,6 +26,17 @@ public class SimpleBoardTest {
     }
 
     @Test
+    public void get_board() {
+        Board board = getBoardFactory().createBoard(List.of(3,3), 3);
+        board.setCellAt(List.of(1,1), 1);
+        board.setCellAt(List.of(0,2), 99);
+        board.setCellAt(List.of(2,0), 6);
+
+        List<Object> boardList = List.of(List.of(0, 0 ,99), List.of(0, 1, 0), List.of(6, 0, 0));
+        assertEquals(board.getBoard(), boardList);
+    }
+
+    @Test
     public void equals_is_equal() {
         Board board1 = getBoardFactory().createBoard(List.of(3,3,3), 3);
         Board board2 = getBoardFactory().createBoard(List.of(3,3,3), 3);

@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import game.data.board.Board;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 
 public class FileBoardSaveWriter implements BoardSaveWriter {

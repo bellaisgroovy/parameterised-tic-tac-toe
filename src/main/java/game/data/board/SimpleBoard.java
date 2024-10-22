@@ -55,12 +55,6 @@ public class SimpleBoard implements Board {
         this.streakToWin = streakToWin;
     }
 
-    public SimpleBoard(List<Integer> sizes, int streakToWin, List<Integer> flatBoard) {
-        this.sizes = sizes;
-        setFlatBoard(flatBoard);
-        this.streakToWin = streakToWin;
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (!(obj instanceof Board)) return false;

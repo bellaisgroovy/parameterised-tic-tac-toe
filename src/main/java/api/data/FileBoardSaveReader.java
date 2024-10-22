@@ -3,15 +3,9 @@ package api.data;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import game.data.board.Board;
 import game.data.board.ListBoard;
-import game.data.board.SimpleBoard;
-
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Scanner;
 
 public class FileBoardSaveReader implements BoardSaveReader{
 

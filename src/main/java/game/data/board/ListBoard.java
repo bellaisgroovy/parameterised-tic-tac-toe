@@ -9,6 +9,9 @@ import java.util.Collections;
 import java.util.List;
 
 public class ListBoard implements Board {
+    /**
+     * default constructor used by Jackson
+     */
     public ListBoard() {}
 
     public ListBoard(List<Integer> sizes, int streakToWin) {

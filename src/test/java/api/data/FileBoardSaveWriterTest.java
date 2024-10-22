@@ -1,7 +1,6 @@
 package api.data;
 
 import game.data.board.Board;
-import game.data.board.SimpleBoard;
 import game.data.board.factory.BoardFactory;
 import game.data.board.factory.ListBoardFactory;
 import org.junit.jupiter.api.BeforeEach;

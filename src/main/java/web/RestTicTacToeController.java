@@ -6,7 +6,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import web.data.BoardCreationRequest;
 import web.data.MoveRequest;
 
 import java.util.NoSuchElementException;
@@ -47,7 +49,15 @@ public class RestTicTacToeController {
     @GetMapping("/board/{gameName}/winner")
     public int getWinner(@PathVariable String gameName) throws NoSuchElementException {
        return gameController.getWinner(gameName);
-   }
+    }
+
+    @PostMapping("/board/{gameName}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<Board> createBoard(@PathVariable String gameName, @RequestBody BoardCreationRequest boardCreationRequest) {
+        gameController.createBoard(boardCreationRequest.getSizes(), boardCreationRequest.getStreakToWin(), gameName);
+
+        return new ResponseEntity<>(gameController.getBoard(gameName), HttpStatus.CREATED);
+    }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(IllegalArgumentException.class)

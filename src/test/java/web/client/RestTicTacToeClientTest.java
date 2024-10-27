@@ -5,15 +5,16 @@ import game.data.board.Board;
 import game.data.board.ListBoard;
 import game.data.board.factory.BoardFactory;
 import game.data.board.factory.ListBoardFactory;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import web.TicTacToeApplication;
+import web.data.BoardCreationRequest;
 import web.data.MoveRequest;
 
 import java.util.List;
@@ -101,7 +102,6 @@ public class RestTicTacToeClientTest {
     }
 
     @Test
-    @Disabled
     public void check_board_with_winner() {
         int expectedWinner = 2;
 
@@ -115,7 +115,21 @@ public class RestTicTacToeClientTest {
     }
 
     @Test
-    @Disabled
     public void create_board_works() {
+        BoardCreationRequest boardCreationRequest = new BoardCreationRequest();
+        boardCreationRequest.setSizes(List.of(4,4,4));
+        boardCreationRequest.setStreakToWin(4);
+
+        when(gameController.getBoard(GAME_NAME)).thenReturn(BOARD);
+
+
+        ResponseEntity<ListBoard> actualResponse = restTemplate.postForEntity(BASE_URL + port + BOARD_EXTENSION + "/" + GAME_NAME, boardCreationRequest, ListBoard.class);
+
+
+        assertEquals(HttpStatus.CREATED, actualResponse.getStatusCode());
+        assertEquals(actualResponse.getBody(), BOARD);
+
+        verify(gameController, times(1)).createBoard(boardCreationRequest.getSizes(), boardCreationRequest.getStreakToWin(), GAME_NAME);
+        verify(gameController, times(1)).getBoard(GAME_NAME);
     }
 }

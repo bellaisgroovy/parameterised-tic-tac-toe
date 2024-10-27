@@ -6,11 +6,13 @@ import game.data.board.Board;
 import game.data.board.factory.BoardFactory;
 import game.data.board.factory.ListBoardFactory;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import web.data.BoardCreationRequest;
 import web.data.MoveRequest;
 
 import java.util.List;
@@ -72,7 +74,6 @@ public class RestTicTacToeControllerTest {
     }
 
     @Test
-    @Disabled
     public void check_board() {
         int expectedWinner = 2;
 
@@ -86,7 +87,21 @@ public class RestTicTacToeControllerTest {
     }
 
     @Test
-    @Disabled
     public void create_board_works() {
+        BoardCreationRequest boardCreationRequest = new BoardCreationRequest();
+        boardCreationRequest.setSizes(List.of(4,4,4));
+        boardCreationRequest.setStreakToWin(4);
+
+        when(gameController.getBoard(GAME_NAME)).thenReturn(BOARD);
+
+
+        ResponseEntity<Board> actualResponse = restController.createBoard(GAME_NAME, boardCreationRequest);
+
+
+        assertEquals(HttpStatus.CREATED, actualResponse.getStatusCode());
+        assertEquals(actualResponse.getBody(), BOARD);
+
+        verify(gameController, times(1)).createBoard(boardCreationRequest.getSizes(), boardCreationRequest.getStreakToWin(), GAME_NAME);
+        verify(gameController, times(1)).getBoard(GAME_NAME);
     }
 }

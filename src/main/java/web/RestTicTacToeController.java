@@ -44,6 +44,11 @@ public class RestTicTacToeController {
         gameController.playInCell(moveRequest.getCoordinate(), moveRequest.getPlayer(), gameName);
     }
 
+    @GetMapping("/board/{gameName}/winner")
+    public int getWinner(@PathVariable String gameName) throws NoSuchElementException {
+       return gameController.getWinner(gameName);
+   }
+
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(IllegalArgumentException.class)
     public void handleInvalidMoveRequest(IllegalArgumentException e) {

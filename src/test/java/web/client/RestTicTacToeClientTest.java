@@ -1,9 +1,10 @@
 package web.client;
 
 import api.controller.GameController;
-import api.controller.SimpleGameControllerTest;
 import game.data.board.Board;
 import game.data.board.ListBoard;
+import game.data.board.factory.BoardFactory;
+import game.data.board.factory.ListBoardFactory;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest(classes = TicTacToeApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class RestTicTacToeClientTest extends SimpleGameControllerTest {
+public class RestTicTacToeClientTest {
     @LocalServerPort
     private int port;
 
@@ -32,14 +33,14 @@ public class RestTicTacToeClientTest extends SimpleGameControllerTest {
 
     private static final String BASE_URL = "http://localhost:";
     private static final String BOARD_EXTENSION = "/board";
+    private static final String WINNER_EXTENSION = "/winner";
+
+    private final BoardFactory boardFactory = new ListBoardFactory();
+    private final Board BOARD = boardFactory.createBoard(List.of(3,3), 3);
+    private final String GAME_NAME = "existing_3x3";
 
     private final RestTemplate restTemplate = new RestTemplate();
 
-    @Override
-    @Disabled
-    public void setUp() {}
-
-    @Override
     @Test
     public void get_existing_board() {
         when(gameController.getBoard(GAME_NAME)).thenReturn(BOARD);
@@ -52,7 +53,6 @@ public class RestTicTacToeClientTest extends SimpleGameControllerTest {
         assertEquals(BOARD, actualResponse);
     }
 
-    @Override
     @Test
     public void get_nonexistent_board() {
         when(gameController.getBoard(GAME_NAME)).thenThrow(new NoSuchElementException());
@@ -66,9 +66,6 @@ public class RestTicTacToeClientTest extends SimpleGameControllerTest {
         assertEquals(HttpStatus.NOT_FOUND, exception.getStatusCode());
     }
 
-
-
-    @Override
     @Test
     public void play_in_valid_cell() {
         List<Integer> coordinate = List.of(1,2);
@@ -86,7 +83,6 @@ public class RestTicTacToeClientTest extends SimpleGameControllerTest {
         verify(gameController, times(1)).playInCell(coordinate, player, GAME_NAME);
     }
 
-    @Override
     @Test
     public void play_in_invalid_cell() {
         List<Integer> coordinate = List.of(9,9,9,9);
@@ -105,31 +101,22 @@ public class RestTicTacToeClientTest extends SimpleGameControllerTest {
         assertEquals(HttpStatus.BAD_REQUEST, exception.getStatusCode());
     }
 
-    @Override
     @Test
     @Disabled
     public void check_board_with_winner() {
-        super.check_board_with_winner();
+        int expectedWinner = 2;
+
+        when(gameController.getWinner(GAME_NAME)).thenReturn(expectedWinner);
+
+
+        Integer actualWinner = restTemplate.getForObject(BASE_URL + port + BOARD_EXTENSION + "/" + GAME_NAME + WINNER_EXTENSION, Integer.class);
+
+        assertEquals(expectedWinner, actualWinner);
+        verify(gameController, times(1)).getWinner(GAME_NAME);
     }
 
-    @Override
-    @Test
-    @Disabled
-    public void check_board_with_draw() {
-        super.check_board_with_draw();
-    }
-
-    @Override
-    @Test
-    @Disabled
-    public void check_ongoing_board() {
-        super.check_ongoing_board();
-    }
-
-    @Override
     @Test
     @Disabled
     public void create_board_works() {
-        super.create_board_works();
     }
 }

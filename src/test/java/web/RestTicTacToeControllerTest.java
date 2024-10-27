@@ -73,17 +73,16 @@ public class RestTicTacToeControllerTest {
 
     @Test
     @Disabled
-    public void check_board_with_winner() {
-    }
+    public void check_board() {
+        int expectedWinner = 2;
 
-    @Test
-    @Disabled
-    public void check_board_with_draw() {
-    }
+        when(gameController.getWinner(GAME_NAME)).thenReturn(expectedWinner);
 
-    @Test
-    @Disabled
-    public void check_ongoing_board() {
+
+        int actualWinner = restController.getWinner(GAME_NAME);
+
+        assertEquals(expectedWinner, actualWinner);
+        verify(gameController, times(1)).getWinner(GAME_NAME);
     }
 
     @Test

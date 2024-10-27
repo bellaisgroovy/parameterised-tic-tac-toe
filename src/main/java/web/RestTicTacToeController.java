@@ -1,9 +1,6 @@
 package web;
 
 import api.controller.GameController;
-import api.controller.SimpleGameController;
-import api.data.BoardRepository;
-import game.boardChecker.BoardChecker;
 import game.data.board.Board;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,8 +19,8 @@ public class RestTicTacToeController {
     private final GameController gameController;
 
     @Autowired
-    public RestTicTacToeController(BoardRepository boardRepository, BoardChecker boardChecker) {
-        this.gameController = new SimpleGameController(boardChecker, boardRepository);
+    public RestTicTacToeController(GameController gameController) {
+        this.gameController = gameController;
     }
 
     /**

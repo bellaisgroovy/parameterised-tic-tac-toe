@@ -1,9 +1,8 @@
 package web;
 
 
+import api.controller.GameController;
 import api.controller.SimpleGameControllerTest;
-import api.data.BoardRepository;
-import game.boardChecker.BoardChecker;
 import game.data.board.Board;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
@@ -23,21 +22,18 @@ public class RestTicTacToeControllerTest extends SimpleGameControllerTest {
     private RestTicTacToeController restController;
 
     @Mock
-    private BoardRepository boardRepository;
-
-    @Mock
-    private BoardChecker boardChecker;
+    private GameController gameController;
 
     @Override
     @BeforeEach
     public void setUp() {
-        restController = new RestTicTacToeController(boardRepository, boardChecker);
+        restController = new RestTicTacToeController(gameController);
     }
 
     @Override
     @Test
     public void get_existing_board() {
-        when(boardRepository.getBoard(GAME_NAME)).thenReturn(BOARD);
+        when(gameController.getBoard(GAME_NAME)).thenReturn(BOARD);
 
         Board actualResponse = restController.getBoard(GAME_NAME);
 
@@ -47,7 +43,7 @@ public class RestTicTacToeControllerTest extends SimpleGameControllerTest {
     @Override
     @Test
     public void get_nonexistent_board() {
-        when(boardRepository.getBoard(GAME_NAME)).thenThrow(NoSuchElementException.class);
+        when(gameController.getBoard(GAME_NAME)).thenThrow(NoSuchElementException.class);
 
         assertThrows(NoSuchElementException.class, () -> restController.getBoard(GAME_NAME));
     }

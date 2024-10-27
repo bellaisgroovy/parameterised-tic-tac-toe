@@ -7,6 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import web.data.MoveRequest;
+
 import java.util.NoSuchElementException;
 
 /**
@@ -34,6 +36,18 @@ public class RestTicTacToeController {
     @GetMapping("/board/{gameName}")
     public Board getBoard(@PathVariable String gameName) throws NoSuchElementException {
         return gameController.getBoard(gameName);
+    }
+
+    @PutMapping("/board/{gameName}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void playInCell(@PathVariable String gameName, @RequestBody MoveRequest moveRequest) {
+        gameController.playInCell(moveRequest.getCoordinate(), moveRequest.getPlayer(), gameName);
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(IllegalArgumentException.class)
+    public void handleInvalidMoveRequest(IllegalArgumentException e) {
+        logger.error("Exception is: ", e);
     }
 
     /**

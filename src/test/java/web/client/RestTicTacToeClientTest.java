@@ -14,7 +14,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import web.TicTacToeApplication;
-import web.data.BoardResponse;
 import web.data.MoveRequest;
 
 import java.util.List;
@@ -60,7 +59,7 @@ public class RestTicTacToeClientTest {
 
 
         HttpClientErrorException exception =
-                assertThrows(HttpClientErrorException.class, () -> restTemplate.getForObject(url, BoardResponse.class));
+                assertThrows(HttpClientErrorException.class, () -> restTemplate.getForObject(url, ListBoard.class));
 
 
         assertEquals(HttpStatus.NOT_FOUND, exception.getStatusCode());

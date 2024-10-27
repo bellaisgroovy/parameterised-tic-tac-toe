@@ -1,6 +1,6 @@
-package controller;
+package api.controller;
 
-import game.data.Board;
+import game.data.board.Board;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -39,9 +39,11 @@ public interface GameController {
      * creates a game with specified name
      * @param sizes
      * sizes of board to be created
+     * @param streakToWin
+     * number of cells in a row a player needs to win
      * @param gameName
      * name of game to be created
      * @return true if created successfully, error if not
      */
-    boolean createBoard(List<Integer> sizes, String gameName);
+    boolean createBoard(List<Integer> sizes, int streakToWin, String gameName);
 }

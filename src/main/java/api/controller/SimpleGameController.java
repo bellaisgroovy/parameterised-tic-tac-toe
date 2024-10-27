@@ -1,16 +1,16 @@
-package controller;
+package api.controller;
 
-import data.BoardRepository;
+import api.data.BoardRepository;
 import game.boardChecker.BoardChecker;
-import game.data.Board;
-import game.data.SimpleBoard;
+import game.data.board.Board;
+import game.data.board.factory.BoardFactory;
+import game.data.board.factory.ListBoardFactory;
 
 import java.util.List;
 import java.util.NoSuchElementException;
 
 public class SimpleGameController implements GameController {
-
-    @Override
+   @Override
     public Board getBoard(String gameName) throws NoSuchElementException {
         return boardRepository.getBoard(gameName);
     }
@@ -30,8 +30,8 @@ public class SimpleGameController implements GameController {
     }
 
     @Override
-    public boolean createBoard(List<Integer> sizes, String gameName) {
-        Board board = new SimpleBoard(sizes);
+    public boolean createBoard(List<Integer> sizes, int streakToWin, String gameName) {
+        Board board = boardFactory.createBoard(sizes, streakToWin);
         boardRepository.saveBoard(board, gameName);
         return true;
     }
@@ -41,6 +41,9 @@ public class SimpleGameController implements GameController {
         this.boardRepository = boardRepository;
     }
 
-    private BoardRepository boardRepository;
-    private BoardChecker boardChecker;
+    private final BoardRepository boardRepository;
+    
+    private final BoardChecker boardChecker;
+    
+    private final BoardFactory boardFactory = new ListBoardFactory();
 }

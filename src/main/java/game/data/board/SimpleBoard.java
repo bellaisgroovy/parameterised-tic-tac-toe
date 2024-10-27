@@ -1,19 +1,40 @@
-package game.data;
+package game.data.board;
+
+import game.data.BoardEquality;
+import game.data.board.factory.ListBoardFactory;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
-public class SimpleBoard implements Board{
-    public int getNoDimensions() {
-        return dimensions;
-    }
-
+public class SimpleBoard implements Board {
     public List<Integer> getSizes() {
         return sizes;
     }
 
     public List<Integer> getFlatBoard() {
         return flatBoard;
+    }
+
+    private void setFlatBoard(List<Integer> flatBoard) {
+        this.flatBoard = flatBoard;
+    }
+
+    public int getStreakToWin() {
+        return streakToWin;
+    }
+
+    @Override
+    public List<Object> getBoard() {
+        Board listBoard = new ListBoardFactory().createBoard(getSizes(), getStreakToWin());
+        Iterator<List<Integer>> listBoardIterator = listBoard.iterator();
+        Iterator<List<Integer>> thisIterator = iterator();
+
+        while (listBoardIterator.hasNext()) {
+            listBoard.setCellAt(listBoardIterator.next(), getCellAt(thisIterator.next()));
+        }
+
+        return listBoard.getBoard();
     }
 
     public int getCellAt(List<Integer> indices) {
@@ -28,30 +49,22 @@ public class SimpleBoard implements Board{
         getFlatBoard().set(flatIndex, value);
     }
 
-    public SimpleBoard(List<Integer> sizes) {
-        this.dimensions = sizes.size();
+    public SimpleBoard(List<Integer> sizes, int streakToWin) {
         this.sizes = sizes;
         populateFlatBoard();
-    }
-
-    public SimpleBoard(List<Integer> sizes, List<Integer> flatBoard) {
-        this.dimensions = sizes.size();
-        this.sizes = sizes;
-        this.flatBoard = flatBoard;
+        this.streakToWin = streakToWin;
     }
 
     @Override
     public boolean equals(Object obj) {
         if (!(obj instanceof Board)) return false;
-
-        Board board = (Board) obj;
-        return getFlatBoard().equals(board.getFlatBoard());
+        return boardEquality.equals(this, (Board) obj);
     }
 
     @Override
     public String toString() {
-        List<String> stringFlatBoard = new ArrayList<>(flatBoard.size());
-        for (int cell: flatBoard) {
+        List<String> stringFlatBoard = new ArrayList<>(getFlatBoard().size());
+        for (int cell: getFlatBoard()) {
             stringFlatBoard.add(String.valueOf(cell));
         }
 
@@ -67,11 +80,17 @@ public class SimpleBoard implements Board{
                 }
             }
         }
-        return stringFlatBoard.toString();
+
+        return stringFlatBoard.toString().replaceAll(" ", "");
     }
 
-    private final int dimensions;
+    private final BoardCoordinateValidator coordinateValidator = new BoardCoordinateValidator();
+
+    private final BoardEquality boardEquality = new BoardEquality();
+
     private final List<Integer> sizes;
+
+    private final int streakToWin;
 
     private List<Integer> flatBoard; // formatted like python literal array syntax without []
 
@@ -91,41 +110,23 @@ public class SimpleBoard implements Board{
     }
 
     private void validateIndices(List<Integer> indices) {
-        if (!indicesHaveCorrectNoDimensions(indices)) {
-            throw new IllegalArgumentException(indices + "contains wrong number of indices");
-        }
-        if (!indicesAreInBounds(indices)) {
-            throw new IndexOutOfBoundsException("one or more indices in" + indices + " are not in bounds");
-        }
-    }
-
-    private boolean indicesHaveCorrectNoDimensions(List<Integer> indices) {
-        return indices.size() == getNoDimensions();
-    }
-
-    private boolean indicesAreInBounds(List<Integer> indices) {
-        for (int i = 0; i < indices.size(); i++) {
-            if (indices.get(i) >= getSizes().get(i)) {
-                return false;
-            }
-            if (indices.get(i) < 0) {
-                return false;
-            }
-        }
-        return true;
+        coordinateValidator.validateIndices(indices, getSizes(), getSizes().size());
     }
 
     //populate flatBoard with 0s
     private void populateFlatBoard() {
-        this.flatBoard = new ArrayList<>();
+        if (getSizes().isEmpty()) {return;}
+
+        List<Integer> flatBoardCopy = new ArrayList<>();
 
         int totalNoValues = sizes.getFirst();
-        for (int i = 1; i < this.dimensions; i++) {
+        for (int i = 1; i < getSizes().size(); i++) {
             totalNoValues = totalNoValues * this.sizes.get(i);
         }
 
         for (int i = 0; i < totalNoValues; i++) {
-            flatBoard.add(0);
+            flatBoardCopy.add(0);
         }
+        setFlatBoard(flatBoardCopy);
     }
 }

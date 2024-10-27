@@ -1,16 +1,17 @@
-package game.data;
+package game.data.board;
 
+import java.util.Iterator;
 import java.util.List;
 
 /**
  * Manages an n dimensional List with regular lengths. All lists in one dimension must have the same length.
  */
-public interface Board{
-    int getNoDimensions();
-
+public interface Board {
     List<Integer> getSizes();
 
-    List<Integer> getFlatBoard();
+    int getStreakToWin();
+
+    List<Object> getBoard();
 
     int getCellAt(List<Integer> indices);
 
@@ -20,4 +21,8 @@ public interface Board{
 
     @Override
     boolean equals(Object obj);
+
+    default Iterator<List<Integer>> iterator() {
+        return new BoardCoordinateIterator(this);
+    }
 }

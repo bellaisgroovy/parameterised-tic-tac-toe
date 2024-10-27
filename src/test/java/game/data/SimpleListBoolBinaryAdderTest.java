@@ -1,5 +1,6 @@
 package game.data;
 
+import game.data.binary.adder.SimpleListBoolBinaryAdder;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

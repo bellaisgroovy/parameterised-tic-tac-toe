@@ -1,4 +1,4 @@
-package game.data;
+package game.data.binary.adder;
 
 import java.util.List;
 

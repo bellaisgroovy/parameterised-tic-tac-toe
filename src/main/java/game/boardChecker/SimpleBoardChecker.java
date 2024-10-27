@@ -1,19 +1,18 @@
 package game.boardChecker;
 
-import game.data.Board;
-import game.data.ListBoolBinaryAdder;
-import game.data.SimpleListBoolBinaryAdder;
+import game.data.board.Board;
+import game.data.binary.adder.ListBoolBinaryAdder;
+import game.data.binary.adder.SimpleListBoolBinaryAdder;
 import game.data.GameState;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class SimpleBoardChecker implements BoardChecker {
-    int streakToWin;
     ListBoolBinaryAdder binaryAdder;
 
-    public SimpleBoardChecker(int streakToWin) {
-        this.streakToWin = streakToWin;
+    public SimpleBoardChecker() {
         this.binaryAdder = new SimpleListBoolBinaryAdder();
     }
 
@@ -24,16 +23,15 @@ public class SimpleBoardChecker implements BoardChecker {
         List<List<Integer>> directions = getDirections(board);
 
         // check for matches in every direction from every element in board
-        // initialise coordinate
-        List<Integer> firstCoordinate = new ArrayList<>();
-        for (int i = 0; i < board.getNoDimensions(); i++) {
-            firstCoordinate.add(0);
-        }
-        List<Integer> coordinate = new ArrayList<>(firstCoordinate);
+        Iterator<List<Integer>> iterator = board.iterator();
 
         boolean hasEmptyCell = false;
+
         int winner = GameState.ONGOING.value;
-        do {
+
+        while (winner == GameState.ONGOING.value && iterator.hasNext()) {
+            List<Integer> coordinate = iterator.next();
+
             int currentPlayer = board.getCellAt(coordinate);
 
             if (currentPlayer == 0) {
@@ -42,10 +40,8 @@ public class SimpleBoardChecker implements BoardChecker {
 
             if (cellIsWinning(board, coordinate, directions)) {
                 winner = currentPlayer;
-            } else {
-                coordinate = getNextBoardCoordinate(board.getSizes(), coordinate);
             }
-        } while (winner == GameState.ONGOING.value && !coordinate.equals(firstCoordinate));
+        }
 
         if (!hasEmptyCell && winner == GameState.ONGOING.value) {
             winner = GameState.DRAW.value;
@@ -65,23 +61,6 @@ public class SimpleBoardChecker implements BoardChecker {
         return false;
     }
 
-    // adds 1 to the rightmost item in list unless it is already at max in which case it rolls over one place left
-    // like a number system where the base changes at each
-    private List<Integer> getNextBoardCoordinate(List<Integer> sizes, List<Integer> coordinate) {
-        List<Integer> newCoordinate = new ArrayList<>(coordinate);
-        int i = newCoordinate.size() -1;
-          while (i >= 0) {
-            if (newCoordinate.get(i) >= sizes.get(i) - 1) {
-                newCoordinate.set(i, 0);
-                i--;
-            } else {
-                newCoordinate.set(i, newCoordinate.get(i) + 1);
-                break;
-            }
-        }
-        return newCoordinate;
-    }
-
     private boolean isCellWinningInDirection(Board board, List<Integer> coordinate, List<Integer> direction) {
         int streak = 1;
         boolean isStreak = true;
@@ -99,7 +78,7 @@ public class SimpleBoardChecker implements BoardChecker {
             nextCoordinate = new ArrayList<>(addIntLists(nextCoordinate, direction));
         }
 
-        return streak >= streakToWin;
+        return streak >= board.getStreakToWin();
     }
 
     private List<Integer> addIntLists(List<Integer> a, List<Integer> b) {
@@ -121,7 +100,7 @@ public class SimpleBoardChecker implements BoardChecker {
 
     private List<List<Integer>> getDirections(Board board) {
         //populate directions
-        List<List<Boolean>> directionsBool = getAllBinaryCombinationsForNBits(board.getNoDimensions());
+        List<List<Boolean>> directionsBool = getAllBinaryCombinationsForNBits(board.getSizes().size());
         directionsBool.removeFirst(); // the first item is 0 in all components, which isn't a direction
         List<List<Integer>> directions = new ArrayList<>();
         directionsBool.forEach(direction -> directions.add(boolToInt(direction)));
